@@ -19,6 +19,12 @@ defmodule SpamzapperWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/admin" do
+    pipe_through :browser
+
+    resources "/members", SpamzapperWeb.Admin.MemberController
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", SpamzapperWeb do
   #   pipe_through :api

@@ -35,6 +35,12 @@ defmodule SpamzapperWeb.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(Spamzapper.Repo, {:shared, self()})
     end
 
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Spamzapper.ForumRepo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(Spamzapper.ForumRepo, {:shared, self()})
+    end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

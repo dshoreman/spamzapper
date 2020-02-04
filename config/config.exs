@@ -8,7 +8,7 @@
 use Mix.Config
 
 config :spamzapper,
-  ecto_repos: [Spamzapper.Repo]
+  ecto_repos: [Spamzapper.Repo, Spamzapper.ForumRepo]
 
 # Configures the endpoint
 config :spamzapper, SpamzapperWeb.Endpoint,

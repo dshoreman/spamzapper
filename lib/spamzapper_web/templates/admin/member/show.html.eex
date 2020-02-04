@@ -1,0 +1,78 @@
+<h1>Show Member</h1>
+
+<ul>
+
+  <li>
+    <strong>User type:</strong>
+    <%= @member.user_type %>
+  </li>
+
+  <li>
+    <strong>Group:</strong>
+    <%= @member.group_id %>
+  </li>
+
+  <li>
+    <strong>User ip:</strong>
+    <%= @member.user_ip %>
+  </li>
+
+  <li>
+    <strong>Username:</strong>
+    <%= @member.username %>
+  </li>
+
+  <li>
+    <strong>User email:</strong>
+    <%= @member.user_email %>
+  </li>
+
+  <li>
+    <strong>User warnings:</strong>
+    <%= @member.user_warnings %>
+  </li>
+
+  <li>
+    <strong>User login attempts:</strong>
+    <%= @member.user_login_attempts %>
+  </li>
+
+  <li>
+    <strong>User inactive time:</strong>
+    <%= @member.user_inactive_time %>
+  </li>
+
+  <li>
+    <strong>User posts:</strong>
+    <%= @member.user_posts %>
+  </li>
+
+  <li>
+    <strong>User lang:</strong>
+    <%= @member.user_lang %>
+  </li>
+
+  <li>
+    <strong>User rank:</strong>
+    <%= @member.user_rank %>
+  </li>
+
+  <li>
+    <strong>User allow pm:</strong>
+    <%= @member.user_allow_pm %>
+  </li>
+
+  <li>
+    <strong>User sig:</strong>
+    <%= @member.user_sig %>
+  </li>
+
+  <li>
+    <strong>User website:</strong>
+    <%= @member.user_website %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.member_path(@conn, :edit, @member) %></span>
+<span><%= link "Back", to: Routes.member_path(@conn, :index) %></span>

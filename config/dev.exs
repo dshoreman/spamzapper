@@ -9,6 +9,12 @@ config :spamzapper, Spamzapper.Repo,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
+config :spamzapper, Spamzapper.ForumRepo,
+  database: "dw_forum_clone",
+  username: "root",
+  password: "root",
+  hostname: "localhost"
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #

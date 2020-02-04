@@ -19,6 +19,7 @@ defmodule Spamzapper.DataCase do
   using do
     quote do
       alias Spamzapper.Repo
+      alias Spamzapper.ForumRepo
 
       import Ecto
       import Ecto.Changeset
@@ -32,6 +33,12 @@ defmodule Spamzapper.DataCase do
 
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Spamzapper.Repo, {:shared, self()})
+    end
+
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Spamzapper.ForumRepo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(Spamzapper.ForumRepo, {:shared, self()})
     end
 
     :ok

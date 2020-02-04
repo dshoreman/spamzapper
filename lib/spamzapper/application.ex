@@ -10,6 +10,7 @@ defmodule Spamzapper.Application do
     children = [
       # Start the Ecto repository
       Spamzapper.Repo,
+      Spamzapper.ForumRepo,
       # Start the endpoint when the application starts
       SpamzapperWeb.Endpoint
       # Starts a worker by calling: Spamzapper.Worker.start_link(arg)
