@@ -74,5 +74,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: Routes.member_path(@conn, :edit, @member) %></span>
-<span><%= link "Back", to: Routes.member_path(@conn, :index) %></span>
+<span><%= link "Edit", to: Routes.admin_member_path(@conn, :edit, @member) %></span>
+<span><%= link "Back", to: Routes.admin_member_path(@conn, :index) %></span>

@@ -14,46 +14,46 @@ defmodule SpamzapperWeb.MemberControllerTest do
 
   describe "index" do
     test "lists all members", %{authed_conn: authed_conn} do
-      conn = get(authed_conn, Routes.member_path(authed_conn, :index))
+      conn = get(authed_conn, Routes.admin_member_path(authed_conn, :index))
       assert html_response(conn, 200) =~ "Listing Members"
     end
 
     test "redirects guests to login", %{conn: conn} do
-      conn = get(conn, Routes.member_path(conn, :index))
+      conn = get(conn, Routes.admin_member_path(conn, :index))
       assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/admin/members")
     end
   end
 
   describe "new member" do
     test "renders form", %{authed_conn: authed_conn} do
-      conn = get(authed_conn, Routes.member_path(authed_conn, :new))
+      conn = get(authed_conn, Routes.admin_member_path(authed_conn, :new))
       assert html_response(conn, 200) =~ "New Member"
     end
 
     test "redirects guests to login", %{conn: conn} do
-      conn = get(conn, Routes.member_path(conn, :new))
+      conn = get(conn, Routes.admin_member_path(conn, :new))
       assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/admin/members/new")
     end
   end
 
   describe "create member" do
     test "redirects to show when data is valid", %{authed_conn: authed_conn} do
-      conn = post(authed_conn, Routes.member_path(authed_conn, :create), member: @create_attrs)
+      conn = post(authed_conn, Routes.admin_member_path(authed_conn, :create), member: @create_attrs)
 
       assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.member_path(conn, :show, id)
+      assert redirected_to(conn) == Routes.admin_member_path(conn, :show, id)
 
-      conn = get(authed_conn, Routes.member_path(authed_conn, :show, id))
+      conn = get(authed_conn, Routes.admin_member_path(authed_conn, :show, id))
       assert html_response(conn, 200) =~ "Show Member"
     end
 
     test "renders errors when data is invalid", %{authed_conn: authed_conn} do
-      conn = post(authed_conn, Routes.member_path(authed_conn, :create), member: @invalid_attrs)
+      conn = post(authed_conn, Routes.admin_member_path(authed_conn, :create), member: @invalid_attrs)
       assert html_response(conn, 200) =~ "New Member"
     end
 
     test "redirects guests to login", %{conn: conn} do
-      conn = post(conn, Routes.member_path(conn, :create), member: @create_attrs)
+      conn = post(conn, Routes.admin_member_path(conn, :create), member: @create_attrs)
       assert redirected_to(conn) == Routes.pow_session_path(conn, :new)
     end
   end
@@ -62,12 +62,12 @@ defmodule SpamzapperWeb.MemberControllerTest do
     setup [:create_member]
 
     test "renders form for editing chosen member", %{authed_conn: authed_conn, member: member} do
-      conn = get(authed_conn, Routes.member_path(authed_conn, :edit, member))
+      conn = get(authed_conn, Routes.admin_member_path(authed_conn, :edit, member))
       assert html_response(conn, 200) =~ "Edit Member"
     end
 
     test "redirects guests to login", %{conn: conn, member: member} do
-      conn = get(conn, Routes.member_path(conn, :edit, member))
+      conn = get(conn, Routes.admin_member_path(conn, :edit, member))
       assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/admin/members/#{member.user_id}/edit")
     end
   end
@@ -76,20 +76,20 @@ defmodule SpamzapperWeb.MemberControllerTest do
     setup [:create_member]
 
     test "redirects when data is valid", %{authed_conn: authed_conn, member: member} do
-      conn = put(authed_conn, Routes.member_path(authed_conn, :update, member), member: @update_attrs)
-      assert redirected_to(conn) == Routes.member_path(conn, :show, member)
+      conn = put(authed_conn, Routes.admin_member_path(authed_conn, :update, member), member: @update_attrs)
+      assert redirected_to(conn) == Routes.admin_member_path(conn, :show, member)
 
-      conn = get(authed_conn, Routes.member_path(authed_conn, :show, member))
+      conn = get(authed_conn, Routes.admin_member_path(authed_conn, :show, member))
       assert html_response(conn, 200) =~ "some updated user_email"
     end
 
     test "renders errors when data is invalid", %{authed_conn: authed_conn, member: member} do
-      conn = put(authed_conn, Routes.member_path(authed_conn, :update, member), member: @invalid_attrs)
+      conn = put(authed_conn, Routes.admin_member_path(authed_conn, :update, member), member: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit Member"
     end
 
     test "redirects guests to login", %{conn: conn, member: member} do
-      conn = put(conn, Routes.member_path(conn, :update, member), member: @update_attrs)
+      conn = put(conn, Routes.admin_member_path(conn, :update, member), member: @update_attrs)
       assert redirected_to(conn) == Routes.pow_session_path(conn, :new)
     end
   end
@@ -98,15 +98,15 @@ defmodule SpamzapperWeb.MemberControllerTest do
     setup [:create_member]
 
     test "deletes chosen member", %{authed_conn: authed_conn, member: member} do
-      conn = delete(authed_conn, Routes.member_path(authed_conn, :delete, member))
-      assert redirected_to(conn) == Routes.member_path(conn, :index)
+      conn = delete(authed_conn, Routes.admin_member_path(authed_conn, :delete, member))
+      assert redirected_to(conn) == Routes.admin_member_path(conn, :index)
       assert_error_sent 404, fn ->
-        get(authed_conn, Routes.member_path(conn, :show, member))
+        get(authed_conn, Routes.admin_member_path(conn, :show, member))
       end
     end
 
     test "redirects guests to login", %{conn: conn, member: member} do
-      conn = delete(conn, Routes.member_path(conn, :delete, member))
+      conn = delete(conn, Routes.admin_member_path(conn, :delete, member))
       assert redirected_to(conn) == Routes.pow_session_path(conn, :new)
     end
   end
