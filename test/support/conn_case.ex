@@ -21,10 +21,18 @@ defmodule SpamzapperWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
+      alias Spamzapper.Users.User
       alias SpamzapperWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
       @endpoint SpamzapperWeb.Endpoint
+
+      defp authenticate(%{conn: conn}) do
+        user = %User{email: "text@example.com"}
+        conn = Pow.Plug.assign_current_user(conn, user, otp_app: :spamzapper)
+
+        {:ok, conn: conn}
+      end
     end
   end
 

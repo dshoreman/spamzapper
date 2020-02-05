@@ -1,17 +1,19 @@
 defmodule SpamzapperWeb.PageControllerTest do
   use SpamzapperWeb.ConnCase
 
-  alias Spamzapper.Users.User
+  describe "index" do
+    setup [:authenticate]
 
-  setup %{conn: conn} do
-    user = %User{email: "text@example.com"}
-    conn = Pow.Plug.assign_current_user(conn, user, otp_app: :spamzapper)
-
-    {:ok, conn: conn}
+    test "GET /", %{conn: conn} do
+      conn = get(conn, "/")
+      assert html_response(conn, 200) =~ "Welcome to Phoenix!"
+    end
   end
 
-  test "GET /", %{conn: conn} do
-    conn = get(conn, "/")
-    assert html_response(conn, 200) =~ "Welcome to Phoenix!"
+  describe "guest index" do
+    test "redirects to login", %{conn: conn} do
+      conn = get(conn, "/")
+      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/")
+    end
   end
 end
