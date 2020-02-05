@@ -27,11 +27,11 @@ defmodule SpamzapperWeb.ConnCase do
       # The default endpoint for testing
       @endpoint SpamzapperWeb.Endpoint
 
-      defp authenticate(%{conn: conn}) do
+      setup %{conn: conn} do
         user = %User{email: "text@example.com"}
-        conn = Pow.Plug.assign_current_user(conn, user, otp_app: :spamzapper)
+        authed_conn = Pow.Plug.assign_current_user(conn, user, otp_app: :spamzapper)
 
-        {:ok, conn: conn}
+        {:ok, conn: conn, authed_conn: authed_conn}
       end
     end
   end
