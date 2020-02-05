@@ -2,10 +2,18 @@ defmodule SpamzapperWeb.MemberControllerTest do
   use SpamzapperWeb.ConnCase
 
   alias Spamzapper.Forum
+  alias Spamzapper.Users.User
 
   @create_attrs %{group_id: 42, user_allow_pm: true, user_email: "some user_email", user_inactive_time: 42, user_ip: "some user_ip", user_lang: "some user_lang", user_login_attempts: 42, user_posts: 42, user_rank: 42, user_sig: "some user_sig", user_type: 42, user_warnings: 42, user_website: "some user_website", username: "some username"}
   @update_attrs %{group_id: 43, user_allow_pm: false, user_email: "some updated user_email", user_inactive_time: 43, user_ip: "some updated user_ip", user_lang: "some updated user_lang", user_login_attempts: 43, user_posts: 43, user_rank: 43, user_sig: "some updated user_sig", user_type: 43, user_warnings: 43, user_website: "some updated user_website", username: "some updated username"}
   @invalid_attrs %{group_id: nil, user_allow_pm: nil, user_email: nil, user_inactive_time: nil, user_ip: nil, user_lang: nil, user_login_attempts: nil, user_posts: nil, user_rank: nil, user_sig: nil, user_type: nil, user_warnings: nil, user_website: nil, username: nil}
+
+  setup %{conn: conn} do
+    user = %User{email: "text@example.com"}
+    conn = Pow.Plug.assign_current_user(conn, user, otp_app: :spamzapper)
+
+    {:ok, conn: conn}
+  end
 
   def fixture(:member) do
     {:ok, member} = Forum.create_member(@create_attrs)
@@ -28,10 +36,10 @@ defmodule SpamzapperWeb.MemberControllerTest do
 
   describe "create member" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.member_path(conn, :create), member: @create_attrs)
+      resp = post(conn, Routes.member_path(conn, :create), member: @create_attrs)
 
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.member_path(conn, :show, id)
+      assert %{id: id} = redirected_params(resp)
+      assert redirected_to(resp) == Routes.member_path(conn, :show, id)
 
       conn = get(conn, Routes.member_path(conn, :show, id))
       assert html_response(conn, 200) =~ "Show Member"
@@ -56,8 +64,8 @@ defmodule SpamzapperWeb.MemberControllerTest do
     setup [:create_member]
 
     test "redirects when data is valid", %{conn: conn, member: member} do
-      conn = put(conn, Routes.member_path(conn, :update, member), member: @update_attrs)
-      assert redirected_to(conn) == Routes.member_path(conn, :show, member)
+      resp = put(conn, Routes.member_path(conn, :update, member), member: @update_attrs)
+      assert redirected_to(resp) == Routes.member_path(conn, :show, member)
 
       conn = get(conn, Routes.member_path(conn, :show, member))
       assert html_response(conn, 200) =~ "some updated user_email"
@@ -73,8 +81,8 @@ defmodule SpamzapperWeb.MemberControllerTest do
     setup [:create_member]
 
     test "deletes chosen member", %{conn: conn, member: member} do
-      conn = delete(conn, Routes.member_path(conn, :delete, member))
-      assert redirected_to(conn) == Routes.member_path(conn, :index)
+      resp = delete(conn, Routes.member_path(conn, :delete, member))
+      assert redirected_to(resp) == Routes.member_path(conn, :index)
       assert_error_sent 404, fn ->
         get(conn, Routes.member_path(conn, :show, member))
       end
