@@ -16,13 +16,17 @@ defmodule SpamzapperWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :guest_layout do
+    plug :put_layout, {SpamzapperWeb.LayoutView, :guest}
+  end
+
   pipeline :protected do
     plug Pow.Plug.RequireAuthenticated,
       error_handler: Pow.Phoenix.PlugErrorHandler
   end
 
   scope "/" do
-    pipe_through :browser
+    pipe_through [:browser, :guest_layout]
 
     pow_routes()
     pow_extension_routes()

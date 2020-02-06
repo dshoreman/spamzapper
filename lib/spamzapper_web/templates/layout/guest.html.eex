@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>Spamzapper · Phoenix Framework</title>
+
+    <link rel="stylesheet" crossorigin="anonymous"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" />
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" />
+
+    <%= csrf_meta_tag() %>
+  </head>
+
+  <body class="pow">
+    <div class="container-fluid">
+      <div class="row justify-content-md-center">
+        <main role="main" class="col-md-6 pt-3 px-4">
+          <div class="brand">
+            <span>spam</span>zapper
+          </div>
+          <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+          <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+
+          <%= render @view_module, @view_template, assigns %>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
