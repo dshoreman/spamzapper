@@ -1,34 +1,38 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>A productive web framework that<br/>does not compromise speed or maintainability.</p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+  <h1 class="h2">Dashboard</h1>
+</div>
+
+<section class="jumbotron text-center">
+  <h1 class="display-4"><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
+  <p class="lead">A productive web framework that<br/>does not compromise speed or maintainability.</p>
 </section>
 
 <section class="row">
-  <article class="column">
+  <article class="col-sm-6">
     <h2>Resources</h2>
-    <ul>
+    <ul class="nav flex-column">
       <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
+        <a class="nav-link" href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
       </li>
       <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
+        <a class="nav-link" href="https://github.com/phoenixframework/phoenix">Source</a>
       </li>
       <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
+        <a class="nav-link" href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
       </li>
     </ul>
   </article>
-  <article class="column">
+  <article class="col-sm-6">
     <h2>Help</h2>
-    <ul>
+    <ul class="nav flex-column">
       <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
+        <a class="nav-link" href="https://elixirforum.com/c/phoenix-forum">Forum</a>
       </li>
       <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
+        <a class="nav-link" href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
       </li>
       <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
+        <a class="nav-link" href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
       </li>
     </ul>
   </article>

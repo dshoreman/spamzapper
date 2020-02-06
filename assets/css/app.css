@@ -1,3 +1,7 @@
 /* This file is for your main application css. */
 
-@import "./phoenix.css";
+.alert:empty {
+    display: none;
+}
+
+@import "./layout.css";
