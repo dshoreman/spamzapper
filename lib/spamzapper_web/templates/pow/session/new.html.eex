@@ -19,6 +19,11 @@
     <%= error_tag f, :password %>
   </div>
 
+  <div class="form-check mb-3">
+    <%= checkbox f, :persistent_session, class: "form-check-input" %>
+    <%= label f, :persistent_session, "Remember me", class: "form-check-label" %>
+  </div>
+
   <%= submit "Sign in", class: "btn btn-primary px-4 mb-4" %>
 <% end %>
 

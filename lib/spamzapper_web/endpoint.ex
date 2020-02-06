@@ -44,5 +44,6 @@ defmodule SpamzapperWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug Pow.Plug.Session, otp_app: :spamzapper
+  plug PowPersistentSession.Plug.Cookie
   plug SpamzapperWeb.Router
 end

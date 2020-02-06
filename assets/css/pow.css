@@ -28,3 +28,8 @@ body.pow h1 {
 body.pow label {
     font-weight: bold;
 }
+body.pow label.form-check-label {
+    font-weight: normal;
+    padding-left: 5px;
+    padding-top: 2px;
+}

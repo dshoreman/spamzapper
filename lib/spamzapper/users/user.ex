@@ -2,7 +2,7 @@ defmodule Spamzapper.Users.User do
   use Ecto.Schema
   use Pow.Ecto.Schema
   use Pow.Extension.Ecto.Schema,
-    extensions: [PowResetPassword, PowEmailConfirmation]
+    extensions: [PowResetPassword, PowEmailConfirmation, PowPersistentSession]
 
   schema "users" do
     pow_user_fields()

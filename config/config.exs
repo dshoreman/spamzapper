@@ -29,7 +29,7 @@ config :phoenix, :json_library, Jason
 config :spamzapper, :pow,
   user: Spamzapper.Users.User,
   repo: Spamzapper.Repo,
-  extensions: [PowResetPassword, PowEmailConfirmation],
+  extensions: [PowResetPassword, PowEmailConfirmation, PowPersistentSession],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
   mailer_backend: SpamzapperWeb.PowMailer,
   web_module: SpamzapperWeb
