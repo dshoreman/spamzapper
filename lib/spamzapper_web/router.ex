@@ -25,6 +25,12 @@ defmodule SpamzapperWeb.Router do
       error_handler: Pow.Phoenix.PlugErrorHandler
   end
 
+  scope "/", Pow.Phoenix, as: "pow" do
+    pipe_through [:browser, :protected]
+
+    get "/registration/edit", RegistrationController, :edit
+  end
+
   scope "/" do
     pipe_through [:browser, :guest_layout]
 

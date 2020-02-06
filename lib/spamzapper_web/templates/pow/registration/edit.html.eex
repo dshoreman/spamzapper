@@ -1,4 +1,10 @@
-<h1 class="mb-3">Edit profile</h1>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+  <h1 class="h2">Edit Profile</h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <%= link "Back", to: Routes.page_path(@conn, :index),
+      class: "btn btn-sm btn-outline-secondary mr-2" %>
+  </div>
+</div>
 
 <%= form_for @changeset, @action, [as: :user], fn f -> %>
   <%= if @changeset.action do %>
