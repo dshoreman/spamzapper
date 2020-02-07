@@ -25,6 +25,14 @@ defmodule SpamzapperWeb.Router do
       error_handler: Pow.Phoenix.PlugErrorHandler
   end
 
+  pipeline :admin do
+    plug SpamzapperWeb.EnsureRolePlug, :admin
+  end
+
+  pipeline :moderator do
+    plug SpamzapperWeb.EnsureRolePlug, [:moderator, :admin]
+  end
+
   scope "/", Pow.Phoenix, as: "pow" do
     pipe_through [:browser, :protected]
 
@@ -39,13 +47,13 @@ defmodule SpamzapperWeb.Router do
   end
 
   scope "/", SpamzapperWeb do
-    pipe_through [:browser, :protected]
+    pipe_through [:browser, :protected, :moderator]
 
     get "/", PageController, :index
   end
 
   scope "/admin", SpamzapperWeb.Admin, as: :admin do
-    pipe_through [:browser, :protected]
+    pipe_through [:browser, :protected, :admin]
 
     resources "/members", MemberController
   end

@@ -41,6 +41,7 @@
                 </a>
               </li>
 
+              <%= if @current_user.role == "admin" do %>
               <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                 <span>Admin</span>
                 <a class="d-flex align-items-center text-muted" href="#">
@@ -53,6 +54,7 @@
                   Forum members
                 </a>
               </li>
+              <% end %>
             </ul>
           </div>
         </nav>

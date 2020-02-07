@@ -28,10 +28,15 @@ defmodule SpamzapperWeb.ConnCase do
       @endpoint SpamzapperWeb.Endpoint
 
       setup %{conn: conn} do
-        user = %User{email: "text@example.com"}
-        authed_conn = Pow.Plug.assign_current_user(conn, user, otp_app: :spamzapper)
+        admin = %User{email: "admin@example.com", role: "admin"}
+        mod = %User{email: "mod@example.com", role: "moderator"}
+        user = %User{email: "unverified@example.com"}
 
-        {:ok, conn: conn, authed_conn: authed_conn}
+        authed_conn = Pow.Plug.assign_current_user(conn, admin, otp_app: :spamzapper)
+        unverified_conn = Pow.Plug.assign_current_user(conn, user, otp_app: :spamzapper)
+        mod_conn = Pow.Plug.assign_current_user(conn, mod, otp_app: :spamzapper)
+
+        {:ok, conn: conn, authed_conn: authed_conn, mod_conn: mod_conn, unverified_conn: unverified_conn}
       end
     end
   end
