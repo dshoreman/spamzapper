@@ -12,14 +12,14 @@ defmodule Spamzapper.Users.UserTest do
     assert user.role == "unverified"
   end
 
-  test "changeset_role/2" do
-    changeset = User.changeset_role(%User{}, %{role: "invalid"})
+  test "role_changeset/2" do
+    changeset = User.role_changeset(%User{}, %{role: "invalid"})
     assert changeset.errors[:role] == {"is invalid", [
       validation: :inclusion,
       enum: ["unverified", "moderator", "admin"],
     ]}
 
-    changeset = User.changeset_role(%User{}, %{role: "admin"})
+    changeset = User.role_changeset(%User{}, %{role: "admin"})
     refute changeset.errors[:role]
   end
 end

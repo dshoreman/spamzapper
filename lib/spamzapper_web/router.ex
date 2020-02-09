@@ -56,6 +56,7 @@ defmodule SpamzapperWeb.Router do
     pipe_through [:browser, :protected, :admin]
 
     resources "/members", MemberController
+    resources "/users", UserController
   end
 
   # Other scopes may use custom stacks.

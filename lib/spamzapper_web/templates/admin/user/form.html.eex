@@ -1,0 +1,33 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <span>Oops, something went wrong! Please check the errors below.</span>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :email %>
+    <%= text_input f, :email, class: "form-control" %>
+    <%= error_tag f, :email %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :password %>
+    <%= password_input f, :password, class: "form-control" %>
+    <%= error_tag f, :password %>
+    <%= error_tag f, :password_confirmation %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :password_confirmation %>
+    <%= password_input f, :password_confirmation, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :role %>
+    <%= select f, :role, ["Unverified": "unverified", "Moderator": "moderator", "Admin": "admin"], class: "form-control" %>
+    <%= error_tag f, :role %>
+  </div>
+
+  <%= submit "Save", class: "btn btn-primary" %>
+<% end %>

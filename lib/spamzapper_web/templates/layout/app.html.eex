@@ -43,7 +43,7 @@
 
               <%= if @current_user.role == "admin" do %>
               <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                <span>Admin</span>
+                <span>Forum Admin</span>
                 <a class="d-flex align-items-center text-muted" href="#">
                   <span data-feather="plus-circle"></span>
                 </a>
@@ -51,7 +51,20 @@
               <li class="nav-item">
                 <a class="nav-link" href="<%= Routes.admin_member_path(@conn, :index) %>">
                   <span data-feather="users"></span>
-                  Forum members
+                  Manage Members
+                </a>
+              </li>
+
+              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Spamzapper Admin</span>
+                <a class="d-flex align-items-center text-muted" href="#">
+                  <span data-feather="plus-circle"></span>
+                </a>
+              </h6>
+              <li class="nav-item">
+                <a class="nav-link" href="<%= Routes.admin_user_path(@conn, :index) %>">
+                  <span data-feather="users"></span>
+                  Manage Users
                 </a>
               </li>
               <% end %>
