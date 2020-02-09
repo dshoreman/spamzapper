@@ -17,59 +17,19 @@
   <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="">Spamzapper</a>
-      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+
+      <input class="form-control form-control-dark w-100"
+             type="text" placeholder="Search" aria-label="Search" />
+
       <ul class="navbar-nav px-3">
-        <%= if @current_user do %>
-          <li class="nav-item text-nowrap">
-            <%= link @current_user.email, to: Routes.pow_registration_path(@conn, :edit), class: "nav-link" %>
-          </li>
-          <li class="nav-item text-nowrap px-3">
-            <%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "nav-link" %>
-          </li>
-        <% end %>
+        <%= render "usermenu.html", assigns %>
       </ul>
     </nav>
+
     <div class="container-fluid">
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link" href="<%= Routes.page_path(@conn, :index) %>">
-                  <span data-feather="shield"></span>
-                  Dashboard
-                </a>
-              </li>
-
-              <%= if @current_user.role == "admin" do %>
-              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                <span>Forum Admin</span>
-                <a class="d-flex align-items-center text-muted" href="#">
-                  <span data-feather="plus-circle"></span>
-                </a>
-              </h6>
-              <li class="nav-item">
-                <a class="nav-link" href="<%= Routes.admin_member_path(@conn, :index) %>">
-                  <span data-feather="users"></span>
-                  Manage Members
-                </a>
-              </li>
-
-              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                <span>Spamzapper Admin</span>
-                <a class="d-flex align-items-center text-muted" href="#">
-                  <span data-feather="plus-circle"></span>
-                </a>
-              </h6>
-              <li class="nav-item">
-                <a class="nav-link" href="<%= Routes.admin_user_path(@conn, :index) %>">
-                  <span data-feather="users"></span>
-                  Manage Users
-                </a>
-              </li>
-              <% end %>
-            </ul>
-          </div>
+          <%= render "sidebar.html", assigns %>
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
