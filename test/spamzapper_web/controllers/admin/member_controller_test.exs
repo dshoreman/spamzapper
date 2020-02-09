@@ -64,7 +64,7 @@ defmodule SpamzapperWeb.MemberControllerTest do
       assert redirected_to(conn) == Routes.admin_member_path(conn, :show, id)
 
       conn = get(authed_conn, Routes.admin_member_path(authed_conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Member"
+      assert html_response(conn, 200) =~ "Member Details"
     end
 
     test "renders errors when data is invalid", %{authed_conn: authed_conn} do
@@ -93,7 +93,7 @@ defmodule SpamzapperWeb.MemberControllerTest do
 
     test "renders form for editing chosen member", %{authed_conn: authed_conn, member: member} do
       conn = get(authed_conn, Routes.admin_member_path(authed_conn, :edit, member))
-      assert html_response(conn, 200) =~ "Edit Member"
+      assert html_response(conn, 200) =~ "Edit #{member.username}"
     end
 
     test "redirects moderators to dashboard", %{mod_conn: mod_conn, member: member} do
@@ -125,7 +125,7 @@ defmodule SpamzapperWeb.MemberControllerTest do
 
     test "renders errors when data is invalid", %{authed_conn: authed_conn, member: member} do
       conn = put(authed_conn, Routes.admin_member_path(authed_conn, :update, member), member: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit Member"
+      assert html_response(conn, 200) =~ "Edit #{member.username}"
     end
 
     test "redirects moderators to dashboard", %{mod_conn: mod_conn, member: member} do

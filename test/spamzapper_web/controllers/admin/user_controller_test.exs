@@ -64,7 +64,7 @@ defmodule SpamzapperWeb.Admin.UserControllerTest do
       assert redirected_to(conn) == Routes.admin_user_path(authed_conn, :show, id)
 
       conn = get(authed_conn, Routes.admin_user_path(authed_conn, :show, id))
-      assert html_response(conn, 200) =~ "Show User"
+      assert html_response(conn, 200) =~ "User Details"
     end
 
     test "renders errors when data is invalid", %{authed_conn: authed_conn} do

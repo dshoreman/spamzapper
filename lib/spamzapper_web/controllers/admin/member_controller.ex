@@ -6,12 +6,12 @@ defmodule SpamzapperWeb.Admin.MemberController do
 
   def index(conn, _params) do
     members = Forum.list_members()
-    render(conn, "index.html", members: members)
+    render(conn, "index.html", title: "Listing Members", members: members)
   end
 
   def new(conn, _params) do
     changeset = Forum.change_member(%Member{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", title: "New Member", changeset: changeset)
   end
 
   def create(conn, %{"member" => member_params}) do
@@ -22,19 +22,19 @@ defmodule SpamzapperWeb.Admin.MemberController do
         |> redirect(to: Routes.admin_member_path(conn, :show, member))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", title: "New Member", changeset: changeset)
     end
   end
 
   def show(conn, %{"id" => id}) do
     member = Forum.get_member!(id)
-    render(conn, "show.html", member: member)
+    render(conn, "show.html", title: "Member Details", member: member)
   end
 
   def edit(conn, %{"id" => id}) do
     member = Forum.get_member!(id)
     changeset = Forum.change_member(member)
-    render(conn, "edit.html", member: member, changeset: changeset)
+    render(conn, "edit.html", title: "Edit #{member.username}", member: member, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "member" => member_params}) do
@@ -47,7 +47,7 @@ defmodule SpamzapperWeb.Admin.MemberController do
         |> redirect(to: Routes.admin_member_path(conn, :show, member))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", member: member, changeset: changeset)
+        render(conn, "edit.html", title: "Edit #{member.username}", member: member, changeset: changeset)
     end
   end
 
