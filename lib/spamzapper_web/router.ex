@@ -50,6 +50,7 @@ defmodule SpamzapperWeb.Router do
     pipe_through [:browser, :protected, :moderator]
 
     get "/", PageController, :index
+    get "/email-domains", EmailDomainController, :index
   end
 
   scope "/admin", SpamzapperWeb.Admin, as: :admin do

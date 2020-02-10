@@ -9,6 +9,26 @@ defmodule Spamzapper.Forum do
   alias Spamzapper.Forum.Member
 
   @doc """
+  Returns a list of domains used in email addresses.
+
+  ## Examples
+
+      iex> list_email_domains()
+      [%EmailDomain{}, ...]
+
+  """
+  def list_email_domains do
+    from(Member)
+    |> select([m], %{
+      email_domain: fragment("SUBSTRING_INDEX(user_email, '@', -1) AS email_domain"),
+      occurrences: fragment("COUNT(*) AS occurrences")
+    })
+    |> group_by([m], fragment("email_domain"))
+    |> order_by([desc: fragment("occurrences")])
+    |> ForumRepo.all()
+  end
+
+  @doc """
   Returns the list of members.
 
   ## Examples
