@@ -27,12 +27,6 @@ defmodule Spamzapper.Users.User do
     |> pow_user_id_field_changeset(attrs)
     |> pow_password_changeset(attrs)
     |> pow_extension_changeset(attrs)
-    |> role_changeset(attrs)
-  end
-
-  @spec role_changeset(Ecto.Schema.t() | Ecto.Changeset.t(), map()) :: Ecto.Changeset.t()
-  def role_changeset(user_or_changeset, attrs) do
-    user_or_changeset
     |> cast(attrs, [:role])
     |> validate_inclusion(:role, ~w(unverified moderator admin))
   end

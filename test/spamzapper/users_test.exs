@@ -39,6 +39,31 @@ defmodule Spamzapper.UsersTest do
       assert {:error, %Ecto.Changeset{}} = Users.create_user(@invalid_attrs)
     end
 
+    test "email is required" do
+      changeset = User.admin_changeset(%User{}, Map.delete(@valid_attrs, :email))
+      assert %{email: ["can't be blank"]} = errors_on(changeset)
+    end
+
+    test "password is required" do
+      changeset = User.admin_changeset(%User{}, Map.delete(@valid_attrs, :password))
+      assert %{password: ["can't be blank"]} = errors_on(changeset)
+    end
+
+    test "password must be at least eight characters long" do
+      changeset = User.admin_changeset(%User{}, %{@valid_attrs | password: "short", password_confirmation: "short"})
+      assert %{password: ["should be at least 8 character(s)"]} = errors_on(changeset)
+    end
+
+    test "password must match confirmation" do
+      changeset = User.admin_changeset(%User{}, %{@valid_attrs | password_confirmation: "different"})
+      assert %{password_confirmation: ["does not match confirmation"]} == errors_on(changeset)
+    end
+
+    test "role must be valid" do
+      changeset = User.admin_changeset(%User{}, %{@valid_attrs | role: "invalid"})
+      assert %{role: ["is invalid"]} == errors_on(changeset)
+    end
+
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
       assert {:ok, %User{} = user} = Users.update_user(user, @update_attrs)
