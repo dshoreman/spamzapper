@@ -42,6 +42,20 @@ defmodule Spamzapper.Forum do
   end
 
   @doc """
+  Returns a list of members filtered by email domain
+
+  @@ Examples
+
+      iex> list_members_by_email_domain()
+      [%Member{}, ...]
+
+  """
+  def list_members_by_email_domain(domain) do
+    filter = "%@#{domain}"
+    ForumRepo.all(from m in Member, where: like(m.user_email, ^filter))
+  end
+
+  @doc """
   Gets a single member.
 
   Raises `Ecto.NoResultsError` if the Member does not exist.

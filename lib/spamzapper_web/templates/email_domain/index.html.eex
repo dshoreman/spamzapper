@@ -12,7 +12,11 @@
   <tbody>
     <%= for match <- @domains do %>
       <tr>
-        <th scope="row"><%= match.email_domain %></th>
+        <th scope="row">
+          <%= link match.email_domain, to:
+            Routes.email_domain_path(@conn, :show, match.email_domain)
+          %>
+        </th>
         <td><%= match.occurrences %></td>
       </tr>
     <% end %>
