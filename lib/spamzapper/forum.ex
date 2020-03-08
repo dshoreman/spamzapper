@@ -6,6 +6,7 @@ defmodule Spamzapper.Forum do
   import Ecto.Query, warn: false
   alias Spamzapper.ForumRepo
 
+  alias Spamzapper.Forum.Ban
   alias Spamzapper.Forum.Member
 
   @doc """
@@ -18,11 +19,14 @@ defmodule Spamzapper.Forum do
 
   """
   def list_email_domains do
-    from(Member)
-    |> select([m], %{
-      email_domain: fragment("SUBSTRING_INDEX(user_email, '@', -1) AS email_domain"),
-      occurrences: fragment("COUNT(*) AS occurrences")
+    from(m in Member)
+    |> select([m, b], %{
+      email_domain: fragment("SUBSTRING_INDEX(?, '@', -1) AS email_domain", m.user_email),
+      occurrences: fragment("COUNT(*) AS occurrences"),
+      ban_email: b.ban_email,
     })
+    |> join(:left, [m], b in Ban,
+      on: fragment("? = CONCAT('*@', SUBSTRING_INDEX(?, '@', -1))", b.ban_email, m.user_email))
     |> group_by([m], fragment("email_domain"))
     |> order_by([desc: fragment("occurrences")])
     |> ForumRepo.all()
