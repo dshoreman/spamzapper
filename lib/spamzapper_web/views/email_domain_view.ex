@@ -13,6 +13,7 @@ defmodule SpamzapperWeb.EmailDomainView do
     "yahoo.com",
     "yahoo.co.uk",
   ]
+  def whitelist, do: @whitelist
 
   def banned(ban), do: !!ban.ban_email
 
@@ -24,6 +25,16 @@ defmodule SpamzapperWeb.EmailDomainView do
       "Neutral" -> "light"
     end
   end
+  def ban_class(domain, ban) do
+    if ban != nil do
+      ban_class(ban)
+    else
+      cond do
+        domain in @whitelist -> "success"
+        true -> "info"
+      end
+    end
+  end
 
   def ban_status(ban) do
     cond do
@@ -31,6 +42,16 @@ defmodule SpamzapperWeb.EmailDomainView do
       ban.email_domain in @whitelist -> "Whitelisted"
       !ban.ban_email -> "Neutral"
       true -> "Unknown"
+    end
+  end
+  def ban_status(domain, ban) do
+    if ban != nil do
+      ban_status(ban)
+    else
+      cond do
+        domain in @whitelist -> "Whitelisted"
+        true -> "Neutral"
+      end
     end
   end
 end

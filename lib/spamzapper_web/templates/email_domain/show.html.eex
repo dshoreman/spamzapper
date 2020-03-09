@@ -22,17 +22,23 @@
     </div>
   </div>
   <div class="col-sm-8 col-md-7 col-lg-9">
-    <div class="card text-white bg-<%= ban_class(@ban) %>">
+    <div class="card text-white bg-<%= ban_class(@domain, @ban) %>">
       <div class="card-header">
         Ban Status
       </div>
       <div class="card-body">
         <h5 class="card-title mb-0">
-          <%= ban_status(@ban) %>
-          via
-          <code class="text-white">
-            <%= @ban.ban_email %>
-          </code>
+          <%= ban_status(@domain, @ban) %>:
+          <%= if @ban do %>
+            Emails using
+            <code class="text-white">
+              <%= @ban.ban_email %>
+            </code> are prohibited.
+          <% else %>
+            <%= if @domain in whitelist,
+              do: "#{@domain} cannot be banned via Spamzapper.",
+              else: "No ban entries found." %>
+          <% end %>
         </h5>
       </div>
     </div>
