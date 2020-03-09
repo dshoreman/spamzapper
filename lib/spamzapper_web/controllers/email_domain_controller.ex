@@ -11,6 +11,12 @@ defmodule SpamzapperWeb.EmailDomainController do
 
   def show(conn, %{"domain" => domain}) do
     members = Forum.list_members_by_email_domain(domain)
-    render(conn, "show.html", title: "Members Using #{domain}", domain: domain, members: members)
+
+    render(conn, "show.html",
+      ban: Forum.get_email_ban(domain),
+      domain: domain,
+      members: members,
+      title: domain
+    )
   end
 end

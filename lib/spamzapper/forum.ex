@@ -33,6 +33,26 @@ defmodule Spamzapper.Forum do
   end
 
   @doc """
+  Gets the first matching ban entry for an email domain.
+
+  ## Examples
+
+      iex> get_email_ban(hotmail.com)
+      %Ban{}
+
+      iex> get_email_ban(hotmale.com)
+      nil
+
+  """
+  def get_email_ban(domain) do
+    filter = "*@#{domain}"
+
+    Ban
+    |> where(ban_email: ^filter)
+    |> first |> ForumRepo.one
+  end
+
+  @doc """
   Returns the list of members.
 
   ## Examples
