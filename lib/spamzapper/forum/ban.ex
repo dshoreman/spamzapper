@@ -22,4 +22,11 @@ defmodule Spamzapper.Forum.Ban do
     |> cast(attrs, [:ban_userid, :ban_ip, :ban_email, :ban_start, :ban_end, :ban_exclude, :ban_reason, :ban_give_reason])
     |> validate_required([:ban_userid, :ban_ip, :ban_email, :ban_start, :ban_end, :ban_exclude, :ban_reason, :ban_give_reason])
   end
+
+  @doc false
+  def email_changeset(ban, attrs) do
+    ban
+    |> cast(attrs, [:ban_email, :ban_start, :ban_end, :ban_reason, :ban_give_reason])
+    |> validate_required([:ban_email, :ban_start, :ban_end, :ban_reason, :ban_give_reason])
+  end
 end

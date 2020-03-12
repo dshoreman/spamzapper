@@ -53,6 +53,44 @@ defmodule Spamzapper.Forum do
   end
 
   @doc """
+  Adds an email domain to the banlist
+
+  ## Examples
+
+    iex> create_email_ban(%{ban_email: value})
+    {:ok, %Ban{}}
+
+    iex> create_email_ban(%{ban_email: bad_value})
+    {:error, %Ecto.Changeset{}}
+
+  """
+  def create_email_ban(attrs \\ %{}) do
+    attrs = Map.merge(attrs, %{
+      "ban_give_reason" => "Forbidden.",
+      "ban_reason" => "Email domain blacklisted via Spamzapper.",
+      "ban_start" => DateTime.to_unix(DateTime.utc_now()),
+      "ban_end" => 0,
+    })
+
+    %Ban{}
+    |> Ban.email_changeset(attrs)
+    |> ForumRepo.insert()
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking ban changes.
+
+  ## Examples
+
+    iex> change_email_ban(ban)
+    %Ecto.Changeset{source: %Ban{}}
+
+  """
+  def change_email_ban(%Ban{} = ban) do
+    Ban.email_changeset(ban, %{})
+  end
+
+  @doc """
   Returns the list of members.
 
   ## Examples

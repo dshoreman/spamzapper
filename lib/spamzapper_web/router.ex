@@ -52,6 +52,7 @@ defmodule SpamzapperWeb.Router do
     get "/", PageController, :index
     get "/email-domains", EmailDomainController, :index
     get "/email-domains/:domain", EmailDomainController, :show
+    post "/email-domains/:domain/ban", EmailDomainController, :create_ban
   end
 
   scope "/admin", SpamzapperWeb.Admin, as: :admin do
