@@ -24,8 +24,10 @@ defmodule SpamzapperWeb.EmailDomainController do
 
   def create_ban(conn, %{"domain" => domain}) do
     case Forum.create_email_ban(%{"ban_email" => "*@#{domain}"}) do
-      {:ok, ban} ->
-        redirect(conn, to: Routes.email_domain_path(conn, :show, domain))
+      {:ok, _ban} ->
+        conn
+        |> put_flash(:info, "Domain #{domain} was blacklisted successfully.")
+        |> redirect(to: Routes.email_domain_path(conn, :show, domain))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         members = Forum.list_members_by_email_domain(domain)
@@ -34,7 +36,7 @@ defmodule SpamzapperWeb.EmailDomainController do
           changeset: changeset,
           domain: domain,
           members: members,
-          title: domain,
+          title: domain
         )
     end
   end
