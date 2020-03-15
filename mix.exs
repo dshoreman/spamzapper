@@ -41,6 +41,8 @@ defmodule Spamzapper.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:scrivener_ecto, "~>2.0"},
+      {:scrivener_html, "~>1.8"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},

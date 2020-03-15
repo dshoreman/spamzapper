@@ -93,15 +93,21 @@ defmodule Spamzapper.Forum do
   @doc """
   Returns the list of members.
 
+  Without args this will return all forum users.
+  For a paginated list, pass a list of params
+  containing page and page_size.
+
   ## Examples
 
       iex> list_members()
       [%Member{}, ...]
 
+      iex> list_members(params)
+      %Scrivener.Page{}
+
   """
-  def list_members do
-    ForumRepo.all(Member)
-  end
+  def list_members, do: ForumRepo.all(Member)
+  def list_members(params), do: ForumRepo.paginate(Member, params)
 
   @doc """
   Returns a list of members filtered by email domain

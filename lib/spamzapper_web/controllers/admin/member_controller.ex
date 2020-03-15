@@ -4,9 +4,14 @@ defmodule SpamzapperWeb.Admin.MemberController do
   alias Spamzapper.Forum
   alias Spamzapper.Forum.Member
 
-  def index(conn, _params) do
-    members = Forum.list_members()
-    render(conn, "index.html", title: "Listing Members", members: members)
+  def index(conn, params) do
+    page = Forum.list_members(params)
+
+    render(conn, "index.html",
+      title: "Listing Members",
+      members: page.entries,
+      page: page
+    )
   end
 
   def new(conn, _params) do

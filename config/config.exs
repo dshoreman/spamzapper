@@ -7,6 +7,10 @@
 # General application configuration
 use Mix.Config
 
+config :scrivener_html,
+  routes_helper: SpamzapperWeb.Router.Helpers,
+  view_style: :bootstrap_v4
+
 config :spamzapper,
   ecto_repos: [Spamzapper.Repo, Spamzapper.ForumRepo]
 
