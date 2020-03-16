@@ -2,15 +2,16 @@ defmodule SpamzapperWeb.EmailDomainController do
   use SpamzapperWeb, :controller
 
   alias Spamzapper.Forum
+  alias Spamzapper.ForumRepo
   alias Spamzapper.Forum.Ban
 
-  def index(conn, _params) do
-    domains = Forum.list_email_domains()
+  def index(conn, params) do
+    domains = ForumRepo.paginate(Forum.list_email_domains(), params)
     render(conn, "index.html", title: "Listing Email Domains", domains: domains)
   end
 
   def show(conn, %{"domain" => domain}) do
-    members = Forum.list_members_by_email_domain(domain)
+    members = ForumRepo.paginate(Forum.list_members_by_email_domain(domain), conn.query_params)
     changeset = Forum.change_email_ban(%Ban{})
 
     render(conn, "show.html",

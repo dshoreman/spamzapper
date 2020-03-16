@@ -85,3 +85,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= pagination_links(@conn, @members, [@domain], path: &Routes.email_domain_path/4, action: :show) %>

@@ -25,5 +25,6 @@
   "scrivener": {:hex, :scrivener, "2.7.0", "fa94cdea21fad0649921d8066b1833d18d296217bfdf4a5389a2f45ee857b773", [:mix], [], "hexpm"},
   "scrivener_ecto": {:hex, :scrivener_ecto, "2.3.0", "057f9dd3c77315f0a470263c3565353860d0294404aed611b3524c6df9044189", [:mix], [{:ecto, "~> 3.3", [hex: :ecto, repo: "hexpm", optional: false]}, {:scrivener, "~> 2.4", [hex: :scrivener, repo: "hexpm", optional: false]}], "hexpm"},
   "scrivener_html": {:hex, :scrivener_html, "1.8.1", "d2d287cac72bd5405f1d1afe897fffd0f6ff2f2c8874384dda3bea74397e78d6", [:mix], [{:phoenix, "~> 1.0 and < 1.5.0", [hex: :phoenix, repo: "hexpm", optional: true]}, {:phoenix_html, "~> 2.2", [hex: :phoenix_html, repo: "hexpm", optional: false]}, {:plug, "~> 1.1", [hex: :plug, repo: "hexpm", optional: false]}, {:scrivener, "~> 1.2 or ~> 2.0", [hex: :scrivener, repo: "hexpm", optional: false]}], "hexpm"},
+  "scrivener_list": {:hex, :scrivener_list, "2.0.1", "2b3b5c6aaf21d13b76071e755af498b641f37a069e34e68585ba4c624095d719", [:mix], [{:scrivener_ecto, "~> 1.0 or ~> 2.0", [hex: :scrivener_ecto, repo: "hexpm", optional: false]}], "hexpm"},
   "telemetry": {:hex, :telemetry, "0.4.1", "ae2718484892448a24470e6aa341bc847c3277bfb8d4e9289f7474d752c09c7f", [:rebar3], [], "hexpm"},
 }

@@ -120,7 +120,9 @@ defmodule Spamzapper.Forum do
   """
   def list_members_by_email_domain(domain) do
     filter = "%@#{domain}"
-    ForumRepo.all(from m in Member, where: like(m.user_email, ^filter))
+
+    from m in Member,
+      where: like(m.user_email, ^filter)
   end
 
   @doc """

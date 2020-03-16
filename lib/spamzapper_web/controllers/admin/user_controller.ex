@@ -2,10 +2,11 @@ defmodule SpamzapperWeb.Admin.UserController do
   use SpamzapperWeb, :controller
 
   alias Spamzapper.Users
+  alias Spamzapper.Repo
   alias Spamzapper.Users.User
 
-  def index(conn, _params) do
-    users = Users.list_users()
+  def index(conn, params) do
+    users = Repo.paginate(Users.list_users(), params)
     render(conn, "index.html", title: "Listing Users", users: users)
   end
 

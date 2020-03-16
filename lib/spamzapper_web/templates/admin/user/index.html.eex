@@ -32,3 +32,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= pagination_links(@conn, @users, path: &Routes.admin_member_path/3) %>

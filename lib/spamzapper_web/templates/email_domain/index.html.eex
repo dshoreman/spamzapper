@@ -28,3 +28,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= pagination_links(@conn, @domains, path: &Routes.email_domain_path/3) %>

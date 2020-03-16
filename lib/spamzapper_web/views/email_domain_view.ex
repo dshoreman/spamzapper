@@ -1,5 +1,6 @@
 defmodule SpamzapperWeb.EmailDomainView do
   use SpamzapperWeb, :view
+  import Scrivener.HTML
 
   @whitelist [
     "aol.com",
