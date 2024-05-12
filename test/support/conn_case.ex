@@ -20,7 +20,9 @@ defmodule SpamzapperWeb.ConnCase do
   using do
     quote do
       # Import conveniences for testing with connections
-      use Phoenix.ConnTest
+      import Plug.Conn
+      import Phoenix.ConnTest
+      import SpamzapperWeb.ConnCase
       alias Spamzapper.Users.User
       alias SpamzapperWeb.Router.Helpers, as: Routes
 

@@ -6,15 +6,22 @@ defmodule Spamzapper.Application do
   use Application
 
   def start(_type, _args) do
-    # List all child processes to be supervised
     children = [
       # Start the Ecto repository
       Spamzapper.Repo,
       Spamzapper.ForumRepo,
-      # Start the endpoint when the application starts
+      # Start the Telemetry Supervisor
+      SpamzapperWeb.Telemetry,
+      # Start the PubSub system
+      {Phoenix.PubSub,
+       [
+         name: Spamzapper.PubSub,
+         adapter: Phoenix.PubSub.PG2
+       ]},
+      # Start the Endpoint (http/https)
       SpamzapperWeb.Endpoint
-      # Starts a worker by calling: Spamzapper.Worker.start_link(arg)
-      # {Spamzapper.Worker, arg},
+      # Start a worker by calling: Spamzapper.Worker.start_link(arg)
+      # {Spamzapper.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

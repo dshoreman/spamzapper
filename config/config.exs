@@ -1,11 +1,11 @@
 # This file is responsible for configuring your application
-# and its dependencies with the aid of the Mix.Config module.
+# and its dependencies with the aid of the Config module.
 #
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
 
 # General application configuration
-use Mix.Config
+import Config
 
 config :scrivener_html,
   routes_helper: SpamzapperWeb.Router.Helpers,
@@ -18,8 +18,9 @@ config :spamzapper,
 config :spamzapper, SpamzapperWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "P5VEu1FeeF6d9xV2MQpyrs86mhhX+YU51NxEgv/MF2/jxCITJb5jpPoxtIY9ki4V",
-  render_errors: [view: SpamzapperWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Spamzapper.PubSub, adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: SpamzapperWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Spamzapper.PubSub,
+  live_view: [signing_salt: "aaaaaaaa"]
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -33,6 +33,14 @@
         <span data-feather="plus-circle"></span>
       </a>
     </h6>
+    <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+      <li class="nav-item">
+        <a class="nav-link" href="<%= Routes.live_dashboard_path(@conn, :home) %>" target="_blank">
+          <span data-feather="activity"></span>
+          Live Dashboard
+        </a>
+      </li>
+    <% end %>
     <li class="nav-item">
       <a class="nav-link" href="<%= Routes.admin_user_path(@conn, :index) %>">
         <span data-feather="users"></span>

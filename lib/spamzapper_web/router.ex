@@ -8,6 +8,7 @@ defmodule SpamzapperWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
+    plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -23,6 +24,8 @@ defmodule SpamzapperWeb.Router do
   pipeline :protected do
     plug Pow.Plug.RequireAuthenticated,
       error_handler: Pow.Phoenix.PlugErrorHandler
+
+    plug :put_root_layout, {SpamzapperWeb.LayoutView, :root}
   end
 
   pipeline :admin do
@@ -49,7 +52,7 @@ defmodule SpamzapperWeb.Router do
   scope "/", SpamzapperWeb do
     pipe_through [:browser, :protected, :moderator]
 
-    get "/", PageController, :index
+    live "/", PageLive, :index
     get "/email-domains", EmailDomainController, :index
     get "/email-domains/:domain", EmailDomainController, :show
     post "/email-domains/:domain/ban", EmailDomainController, :create_ban
@@ -60,6 +63,19 @@ defmodule SpamzapperWeb.Router do
 
     resources "/members", MemberController
     resources "/users", UserController
+
+    # Enables LiveDashboard only for development
+    #
+    # If you want to use the LiveDashboard in production, you should put
+    # it behind authentication and allow only admins to access it.
+    # If your application does not have an admins-only section yet,
+    # you can use Plug.BasicAuth to set up some basic authentication
+    # as long as you are also using SSL (which you should anyway).
+    if Mix.env() in [:dev, :test] do
+      import Phoenix.LiveDashboard.Router
+
+      live_dashboard "/dashboard", metrics: SpamzapperWeb.Telemetry
+    end
   end
 
   # Other scopes may use custom stacks.

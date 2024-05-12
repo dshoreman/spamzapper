@@ -47,7 +47,7 @@
               <%= @ban.ban_email %>
             </code> are prohibited.
           <% else %>
-            <%= if @domain in whitelist,
+            <%= if @domain in whitelist(),
               do: "#{@domain} cannot be banned via Spamzapper.",
               else: "No ban entries found." %>
           <% end %>

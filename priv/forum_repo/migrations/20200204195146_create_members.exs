@@ -2,7 +2,7 @@ defmodule Spamzapper.Repo.Migrations.CreateMembers do
   use Ecto.Migration
 
   def change do
-    create table(:phpbb3_users, primary_key: false) do
+    create_if_not_exists table(:phpbb3_users, primary_key: false) do
       add :user_id, :bigserial, primary_key: true
       add :user_type, :integer
       add :group_id, :integer

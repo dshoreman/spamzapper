@@ -1,6 +1,15 @@
-defmodule SpamzapperWeb.PageControllerTest do
+defmodule SpamzapperWeb.PageLiveTest do
   use SpamzapperWeb.ConnCase
 
+  import Phoenix.LiveViewTest
+
+  test "disconnected and connected render", %{authed_conn: authed_conn} do
+    {:ok, page_live, disconnected_html} = live(authed_conn, "/")
+    assert disconnected_html =~ "Welcome to Phoenix!"
+    assert render(page_live) =~ "Welcome to Phoenix!"
+  end
+
+  # old PageController tests
   describe "index" do
     test "GET /", %{authed_conn: authed_conn} do
       conn = get(authed_conn, "/")

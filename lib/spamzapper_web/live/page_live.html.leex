@@ -1,10 +1,20 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-  <h1 class="h2"><%= @title %></h1>
+  <h1 class="h2"><%= @page_title %></h1>
 </div>
 
 <section class="jumbotron text-center">
   <h1 class="display-4"><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p class="lead">A productive web framework that<br/>does not compromise speed or maintainability.</p>
+  <p class="lead">Peace of mind from prototype to production</p>
+
+  <form phx-change="suggest" phx-submit="search">
+    <input type="text" name="q" value="<%= @query %>" placeholder="Live dependency search" list="results" autocomplete="off"/>
+    <datalist id="results">
+      <%= for {app, _vsn} <- @results do %>
+        <option value="<%= app %>"><%= app %></option>
+      <% end %>
+    </datalist>
+    <button type="submit" phx-disable-with="Searching...">Go to Hexdocs</button>
+  </form>
 </section>
 
 <section class="row">
@@ -18,7 +28,7 @@
         <a class="nav-link" href="https://github.com/phoenixframework/phoenix">Source</a>
       </li>
       <li>
-        <a class="nav-link" href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
+        <a class="nav-link" href="https://github.com/phoenixframework/phoenix/blob/v1.5/CHANGELOG.md">v1.5 Changelog</a>
       </li>
     </ul>
   </article>
@@ -33,6 +43,9 @@
       </li>
       <li>
         <a class="nav-link" href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
+      </li>
+      <li>
+        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
       </li>
     </ul>
   </article>

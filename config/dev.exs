@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 # Configure your database
 config :spamzapper, Spamzapper.Repo,
@@ -11,8 +11,8 @@ config :spamzapper, Spamzapper.Repo,
 
 config :spamzapper, Spamzapper.ForumRepo,
   database: "dw_forum_clone",
-  username: "root",
-  password: "root",
+  username: "spamzapper",
+  password: "GpRrRz4\"K@H_%U]6n{ok3[%X@G5",
   hostname: "localhost"
 
 # For development, we disable any cache and enable
