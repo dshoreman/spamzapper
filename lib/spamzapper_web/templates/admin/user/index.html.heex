@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
   <h1 class="h2"><%= @title %></h1>
   <div class="btn-toolbar mb-2 mb-md-0">
-    <a href="<%= Routes.admin_user_path(@conn, :new) %>"
+    <a href={Routes.admin_user_path(@conn, :new)}
       class="btn btn-sm btn-primary">New User</a>
   </div>
 </div>
@@ -33,4 +33,4 @@
   </tbody>
 </table>
 
-<%= pagination_links(@conn, @users, path: &Routes.admin_member_path/3) %>
+<%= paginate(@conn, @users, &Routes.admin_member_path/3, [:index]) %>

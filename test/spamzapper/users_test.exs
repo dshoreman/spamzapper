@@ -69,7 +69,9 @@ defmodule Spamzapper.UsersTest do
       assert {:ok, %User{} = user} = Users.update_user(user, @update_attrs)
       assert user.email_confirmation_token != nil
       assert user.unconfirmed_email == "some_updated+email@example.com"
-      assert user.password == "some updated password"
+      # POW updated the password field to be redacted, so
+      # we'll have to test the new password another way.
+      assert user.password == nil
       assert user.role == "admin"
     end
 

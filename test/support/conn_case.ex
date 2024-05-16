@@ -44,17 +44,7 @@ defmodule SpamzapperWeb.ConnCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Spamzapper.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Spamzapper.Repo, {:shared, self()})
-    end
-
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Spamzapper.ForumRepo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Spamzapper.ForumRepo, {:shared, self()})
-    end
+    Spamzapper.DataCase.setup_sandbox(tags)
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end

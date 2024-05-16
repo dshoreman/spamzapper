@@ -8,9 +8,10 @@ import Config
 config :spamzapper, Spamzapper.Repo,
   username: "postgres",
   password: "postgres",
-  database: "spamzapper_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+  database: "spamzapper_test#{System.get_env("MIX_TEST_PARTITION")}",
+  pool: Ecto.Adapters.SQL.Sandbox,
+  pool_size: 10
 
 config :spamzapper, Spamzapper.ForumRepo,
   database: "dw_forum_test",
@@ -22,11 +23,15 @@ config :spamzapper, Spamzapper.ForumRepo,
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :spamzapper, SpamzapperWeb.Endpoint,
-  http: [port: 4002],
+  http: [ip: {127,0,0,1}, port: 4002],
+  secret_key_base: "+jrLHK0a2gmUrROIqE6Fz7mvxe+R2gQWIVUKkXGs2j8bxLnbAcHoOajYadj1F2eY",
   server: false
 
-# Compile plugs at runtime for faster compilation in tests
-config :phoenix, :plug_init_mode, :runtime
+# In test we don't send emails.
+config :spamzapper, Spamzapper.Mailer, adapter: Swoosh.Adapters.Test
 
 # Print only warnings and errors during test
 config :logger, level: :warning
+
+# Initialize plugs at runtime for faster test compilation
+config :phoenix, :plug_init_mode, :runtime

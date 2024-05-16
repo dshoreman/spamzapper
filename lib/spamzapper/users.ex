@@ -18,7 +18,7 @@ defmodule Spamzapper.Users do
 
   """
   def list_users do
-    User
+    Repo.all(User)
   end
 
   @doc """
