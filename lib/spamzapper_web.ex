@@ -46,7 +46,7 @@ defmodule SpamzapperWeb do
     quote do
       use Phoenix.LiveView,
         container: {:div, style: "display: contents"},
-        layout: {SpamzapperWeb.LayoutView, "live.html"}
+        layout: {SpamzapperWeb.LayoutView, :live}
 
       unquote(view_helpers())
     end
@@ -91,7 +91,7 @@ defmodule SpamzapperWeb do
       use Phoenix.HTML
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
-      import Phoenix.LiveView.Helpers
+      import Phoenix.Component
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
