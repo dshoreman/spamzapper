@@ -4,12 +4,12 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-    <title>Spamzapper</title>
+    <.live_title>Spamzapper</.live_title>
 
     <link rel="stylesheet" crossorigin="anonymous"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" />
-    <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")} />
+    <link rel="stylesheet" href={~p"/assets/app.css"} />
 
     <%= csrf_meta_tag() %>
   </head>
@@ -21,8 +21,8 @@
           <div class="brand">
             <span>spam</span>zapper
           </div>
-          <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-          <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+          <p class="alert alert-info" role="alert"><%= Phoenix.Flash.get(@flash, :info) %></p>
+          <p class="alert alert-danger" role="alert"><%= Phoenix.Flash.get(@flash, :error) %></p>
 
           <%= @inner_content %>
         </main>

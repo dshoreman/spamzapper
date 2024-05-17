@@ -8,21 +8,22 @@ defmodule Spamzapper.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
+      SpamzapperWeb.Telemetry,
       Spamzapper.Repo,
       Spamzapper.ForumRepo,
-      # Start the Telemetry Supervisor
-      SpamzapperWeb.Telemetry,
-      # Start the PubSub system
+      {DNSCluster,
+        query: Application.get_env(:sample_app, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub,
        [
          name: Spamzapper.PubSub,
          adapter: Phoenix.PubSub.PG2
        ]},
-      # Start the Endpoint (http/https)
-      SpamzapperWeb.Endpoint
+      # Start the Finch HTTP client for sending emails
+      {Finch, name: Spamzapper.Finch},
       # Start a worker by calling: Spamzapper.Worker.start_link(arg)
-      # {Spamzapper.Worker, arg}
+      # {Spamzapper.Worker, arg},
+      # Start to serve requests, typically the last entry
+      SpamzapperWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

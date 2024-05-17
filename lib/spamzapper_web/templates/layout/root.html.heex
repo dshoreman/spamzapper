@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <%= csrf_meta_tag() %>
     <%= if assigns[:page_title] do %>
-      <%= live_title_tag assigns[:page_title], suffix: " · Spamzapper" %>
+      <.live_title suffix=" · Spamzapper"><%= assigns[:page_title] %></.live_title>
     <% else %>
-      <%= live_title_tag "Spamzapper" %>
+      <.live_title>Spamzapper</.live_title>
     <% end %>
 
     <link rel="stylesheet" crossorigin="anonymous"

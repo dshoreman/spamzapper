@@ -17,6 +17,8 @@ defmodule SpamzapperWeb do
   and import those modules here.
   """
 
+  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
+
   def controller do
     quote do
       use Phoenix.Controller, namespace: SpamzapperWeb
@@ -24,6 +26,8 @@ defmodule SpamzapperWeb do
       import Plug.Conn
       import SpamzapperWeb.Gettext
       alias SpamzapperWeb.Router.Helpers, as: Routes
+
+      unquote(verified_routes())
     end
   end
 
@@ -70,7 +74,7 @@ defmodule SpamzapperWeb do
 
   def router do
     quote do
-      use Phoenix.Router
+      use Phoenix.Router, helpers: true
 
       import Plug.Conn
       import Phoenix.Controller
@@ -99,6 +103,17 @@ defmodule SpamzapperWeb do
       import SpamzapperWeb.ErrorHelpers
       import SpamzapperWeb.Gettext
       alias SpamzapperWeb.Router.Helpers, as: Routes
+
+      unquote(verified_routes())
+    end
+  end
+
+  def verified_routes do
+    quote do
+      use Phoenix.VerifiedRoutes,
+        endpoint: SpamzapperWeb.Endpoint,
+        router: SpamzapperWeb.Router,
+        statics: SpamzapperWeb.static_paths()
     end
   end
 

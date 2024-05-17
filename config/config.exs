@@ -11,12 +11,18 @@ config :scrivener_phoenix,
   window: 3
 
 config :spamzapper,
-  ecto_repos: [Spamzapper.Repo, Spamzapper.ForumRepo]
+  ecto_repos: [Spamzapper.Repo, Spamzapper.ForumRepo],
+  generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
 config :spamzapper, SpamzapperWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: SpamzapperWeb.ErrorView, accepts: ~w(html json), layout: false],
+  adapter: Bandit.PhoenixAdapter,
+  render_errors: [
+    view: SpamzapperWeb.ErrorView,
+    accepts: ~w(html json),
+    layout: false
+  ],
   pubsub_server: Spamzapper.PubSub,
   live_view: [signing_salt: "aaaaaaaa"]
 
@@ -29,13 +35,10 @@ config :spamzapper, SpamzapperWeb.Endpoint,
 # at the `config/runtime.exs`.
 config :spamzapper, Spamzapper.Mailer, adapter: Swoosh.Adapters.Local
 
-# Swoosh API client is needed for adapters other than SMTP.
-config :swoosh, :api_client, false
-
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.17.11",
-  default: [
+  spamzapper: [
     args: ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}

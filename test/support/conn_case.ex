@@ -19,15 +19,17 @@ defmodule SpamzapperWeb.ConnCase do
 
   using do
     quote do
+      # The default endpoint for testing
+      @endpoint SpamzapperWeb.Endpoint
+
+      use SpamzapperWeb, :verified_routes
+
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
       import SpamzapperWeb.ConnCase
       alias Spamzapper.Users.User
       alias SpamzapperWeb.Router.Helpers, as: Routes
-
-      # The default endpoint for testing
-      @endpoint SpamzapperWeb.Endpoint
 
       setup %{conn: conn} do
         admin = %User{email: "admin@example.com", role: "admin"}
