@@ -1,5 +1,5 @@
 defmodule SpamzapperWeb.EmailDomainController do
-  use SpamzapperWeb, :controller
+  use SpamzapperWeb, :old_controller
 
   alias Spamzapper.Forum
   alias Spamzapper.ForumRepo

@@ -69,7 +69,7 @@ config :spamzapper, SpamzapperWeb.Endpoint,
     patterns: [
       ~r"priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/spamzapper_web/(live|views)/.*(ex|heex)$",
+      ~r"lib/spamzapper_web/(controllers|live|views|components)/.*(ex|heex)$",
       ~r"lib/spamzapper_web/templates/.*(eex|heex)$"
     ]
   ]

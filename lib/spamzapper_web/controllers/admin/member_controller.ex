@@ -1,5 +1,5 @@
 defmodule SpamzapperWeb.Admin.MemberController do
-  use SpamzapperWeb, :controller
+  use SpamzapperWeb, :old_controller
 
   alias Spamzapper.Forum
   alias Spamzapper.Forum.Member

@@ -19,8 +19,7 @@ config :spamzapper, SpamzapperWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
-    view: SpamzapperWeb.ErrorView,
-    accepts: ~w(html json),
+    formats: [html: SpamzapperWeb.ErrorHTML, json: SpamzapperWeb.ErrorJSON],
     layout: false
   ],
   pubsub_server: Spamzapper.PubSub,
