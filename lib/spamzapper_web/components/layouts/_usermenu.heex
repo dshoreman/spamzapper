@@ -1,10 +1,12 @@
 <%= if @current_user do %>
   <li class="nav-item text-nowrap">
-    <.link href={~p"/registration/edit"} class="nav-link">
+    <.link navigate={Pow.Phoenix.Routes.path_for(@conn, Pow.Phoenix.RegistrationController, :edit)} class="nav-link">
       <%= @current_user.email %>
     </.link>
   </li>
   <li class="nav-item text-nowrap px-3">
-    <.link href={~p"/session"} method="delete" class="nav-link">Sign out</.link>
+    <.link href={Pow.Phoenix.Routes.path_for(@conn, Pow.Phoenix.SessionController, :delete)} method="delete" class="nav-link">
+      Sign out
+    </.link>
   </li>
 <% end %>

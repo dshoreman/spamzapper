@@ -25,7 +25,7 @@ defmodule SpamzapperWeb.Router do
   end
 
   pipeline :guest_layout do
-    plug :put_layout, html: {SpamzapperWeb.LayoutView, :guest}
+    plug :put_layout, html: {SpamzapperWeb.Layouts, :guest}
   end
 
   pipeline :protected do
@@ -42,7 +42,7 @@ defmodule SpamzapperWeb.Router do
   end
 
   scope "/", Pow.Phoenix, as: "pow" do
-    pipe_through [:browser, :protected, :oldpage]
+    pipe_through [:browser, :protected, :newpage]
 
     get "/registration/edit", RegistrationController, :edit
   end
