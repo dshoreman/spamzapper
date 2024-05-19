@@ -38,6 +38,7 @@ config :spamzapper, SpamzapperWeb.Endpoint,
   secret_key_base: "P5VEu1FeeF6d9xV2MQpyrs86mhhX+YU51NxEgv/MF2/jxCITJb5jpPoxtIY9ki4V",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:spamzapper, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:spamzapper, ~w(--watch)]}
   ]
 
 # ## SSL Support

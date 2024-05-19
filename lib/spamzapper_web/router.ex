@@ -17,15 +17,20 @@ defmodule SpamzapperWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :oldpage do
+    plug :put_root_layout, {SpamzapperWeb.LayoutView, :root}
+  end
+  pipeline :newpage do
+    plug :put_root_layout, html: {SpamzapperWeb.Layouts, :root}
+  end
+
   pipeline :guest_layout do
-    plug :put_layout, {SpamzapperWeb.LayoutView, :guest}
+    plug :put_layout, html: {SpamzapperWeb.LayoutView, :guest}
   end
 
   pipeline :protected do
     plug Pow.Plug.RequireAuthenticated,
       error_handler: Pow.Phoenix.PlugErrorHandler
-
-    plug :put_root_layout, {SpamzapperWeb.LayoutView, :root}
   end
 
   pipeline :admin do
@@ -37,7 +42,7 @@ defmodule SpamzapperWeb.Router do
   end
 
   scope "/", Pow.Phoenix, as: "pow" do
-    pipe_through [:browser, :protected]
+    pipe_through [:browser, :protected, :oldpage]
 
     get "/registration/edit", RegistrationController, :edit
   end
@@ -50,16 +55,21 @@ defmodule SpamzapperWeb.Router do
   end
 
   scope "/", SpamzapperWeb do
-    pipe_through [:browser, :protected, :moderator]
+    pipe_through [:browser, :protected, :moderator, :newpage]
 
     live "/", PageLive, :index
+  end
+
+  scope "/", SpamzapperWeb do
+    pipe_through [:browser, :protected, :moderator, :oldpage]
+
     get "/email-domains", EmailDomainController, :index
     get "/email-domains/:domain", EmailDomainController, :show
     post "/email-domains/:domain/ban", EmailDomainController, :create_ban
   end
 
   scope "/admin", SpamzapperWeb.Admin, as: :admin do
-    pipe_through [:browser, :protected, :admin]
+    pipe_through [:browser, :protected, :admin, :oldpage]
 
     resources "/members", MemberController
     resources "/users", UserController
@@ -80,7 +90,7 @@ defmodule SpamzapperWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/dev" do
-      pipe_through :browser
+      pipe_through [:browser, :protected, :admin]
 
       live_dashboard "/dashboard", metrics: SpamzapperWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview

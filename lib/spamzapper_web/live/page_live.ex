@@ -1,5 +1,5 @@
 defmodule SpamzapperWeb.PageLive do
-  use SpamzapperWeb, :old_live_view
+  use SpamzapperWeb, :live_view
 
   @impl true
   def mount(_params, _session, socket) do

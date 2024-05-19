@@ -33,7 +33,6 @@ defmodule Spamzapper.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.7.12"},
-      # {:phoenix_pubsub, "~> 2.0"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.11"},
       {:myxql, "~> 0.6.4"},
@@ -45,6 +44,14 @@ defmodule Spamzapper.MixProject do
       {:floki, ">= 0.36.2", only: :test},
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
+      {:heroicons,
+       github: "tailwindlabs/heroicons",
+       tag: "v2.1.1",
+       sparse: "optimized",
+       app: false,
+       compile: false,
+       depth: 1},
       {:swoosh, "~> 1.16"},
       {:finch, "~> 0.13"},
       {:telemetry_metrics, "~> 1.0"},
@@ -72,9 +79,10 @@ defmodule Spamzapper.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.setup": ["esbuild.install --if-missing"],
-      "assets.build": ["esbuild spamzapper"],
+      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
+      "assets.build": ["tailwind spamzapper", "esbuild spamzapper"],
       "assets.deploy": [
+        "tailwind spamzapper --minify",
         "esbuild spamzapper --minify",
         "phx.digest"
       ]
