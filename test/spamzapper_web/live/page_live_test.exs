@@ -23,12 +23,12 @@ defmodule SpamzapperWeb.PageLiveTest do
 
     test "redirects unverified users to dashboard", %{unverified_conn: unverified_conn} do
       conn = get(unverified_conn, ~p"/")
-      assert redirected_to(conn) == Routes.page_path(conn, :index)
+      assert redirected_to(conn) == ~p"/"
     end
 
     test "redirects guests to login", %{conn: conn} do
       conn = get(conn, ~p"/")
-      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/")
+      assert redirected_to(conn) == Pow.Phoenix.Routes.session_path(conn, :new, request_path: "/")
     end
   end
 end

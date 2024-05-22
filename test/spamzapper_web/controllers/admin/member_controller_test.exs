@@ -30,7 +30,7 @@ defmodule SpamzapperWeb.MemberControllerTest do
 
     test "redirects guests to login", %{conn: conn} do
       conn = get(conn, ~p"/admin/members")
-      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: ~p"/admin/members")
+      assert redirected_to(conn) == Pow.Phoenix.Routes.session_path(conn, :new, request_path: ~p"/admin/members")
     end
   end
 
@@ -52,7 +52,7 @@ defmodule SpamzapperWeb.MemberControllerTest do
 
     test "redirects guests to login", %{conn: conn} do
       conn = get(conn, ~p"/admin/members/new")
-      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: ~p"/admin/members/new")
+      assert redirected_to(conn) == Pow.Phoenix.Routes.session_path(conn, :new, request_path: ~p"/admin/members/new")
     end
   end
 
@@ -84,7 +84,7 @@ defmodule SpamzapperWeb.MemberControllerTest do
 
     test "redirects guests to login", %{conn: conn} do
       conn = post(conn, ~p"/admin/members", member: @create_attrs)
-      assert redirected_to(conn) == Routes.pow_session_path(conn, :new)
+      assert redirected_to(conn) == Pow.Phoenix.Routes.session_path(conn, :new)
     end
   end
 
@@ -108,7 +108,7 @@ defmodule SpamzapperWeb.MemberControllerTest do
 
     test "redirects guests to login", %{conn: conn, member: member} do
       conn = get(conn, ~p"/admin/members/#{member}/edit")
-      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: ~p"/admin/members/#{member}/edit")
+      assert redirected_to(conn) == Pow.Phoenix.Routes.session_path(conn, :new, request_path: ~p"/admin/members/#{member}/edit")
     end
   end
 
@@ -140,7 +140,7 @@ defmodule SpamzapperWeb.MemberControllerTest do
 
     test "redirects guests to login", %{conn: conn, member: member} do
       conn = put(conn, ~p"/admin/members/#{member}", member: @update_attrs)
-      assert redirected_to(conn) == Routes.pow_session_path(conn, :new)
+      assert redirected_to(conn) == Pow.Phoenix.Routes.session_path(conn, :new)
     end
   end
 
@@ -167,7 +167,7 @@ defmodule SpamzapperWeb.MemberControllerTest do
 
     test "redirects guests to login", %{conn: conn, member: member} do
       conn = delete(conn, ~p"/admin/members/#{member}")
-      assert redirected_to(conn) == Routes.pow_session_path(conn, :new)
+      assert redirected_to(conn) == Pow.Phoenix.Routes.session_path(conn, :new)
     end
   end
 

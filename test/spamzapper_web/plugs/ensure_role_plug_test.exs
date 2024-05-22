@@ -24,7 +24,7 @@ defmodule SpamzapperWeb.EnsureRolePlugTest do
     conn = EnsureRolePlug.call(conn, opts)
 
     assert conn.halted
-    assert redirected_to(conn) == Routes.page_path(conn, :index)
+    assert redirected_to(conn) == ~p"/"
   end
 
   test "call/2 with unverified user", %{conn: conn} do
@@ -35,7 +35,7 @@ defmodule SpamzapperWeb.EnsureRolePlugTest do
       |> EnsureRolePlug.call(opts)
 
     assert conn.halted
-    assert redirected_to(conn) == Routes.page_path(conn, :index)
+    assert redirected_to(conn) == ~p"/"
   end
 
   test "call/2 with moderator user and multiple roles", %{conn: conn} do

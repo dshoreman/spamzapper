@@ -12,7 +12,8 @@ defmodule SpamzapperWeb.EnsureRolePlug do
   """
   import Plug.Conn, only: [halt: 1]
 
-  alias SpamzapperWeb.Router.Helpers, as: Routes
+  use SpamzapperWeb, :verified_routes
+
   alias Phoenix.Controller
   alias Plug.Conn
   alias Pow.Plug
@@ -40,7 +41,7 @@ defmodule SpamzapperWeb.EnsureRolePlug do
   defp maybe_halt(_any, conn) do
     conn
     |> Controller.put_flash(:error, "Unauthorised access")
-    |> Controller.redirect(to: Routes.page_path(conn, :index))
+    |> Controller.redirect(to: ~p"/")
     |> halt()
   end
 end
