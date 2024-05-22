@@ -1,0 +1,28 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+  <h1 class="h2"><%= @title %></h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <.link href={~p"/admin/users"}
+      class="btn btn-sm btn-outline-secondary mr-2">Back</.link>
+    <.link href={~p"/admin/users/#{@user}/edit"}
+      class="btn btn-sm btn-primary">Edit</.link>
+  </div>
+</div>
+
+<table class="table table-sm">
+
+  <tr>
+    <th scope="row">Email:</th>
+    <td>
+      <%= @user.email %>
+      <%= if @user.unconfirmed_email do %>
+        <p class="text-info">Pending change to <em><%= @user.unconfirmed_email %></em>.</p>
+      <% end %>
+    </td>
+  </tr>
+
+  <tr>
+    <th scope="row">Role:</th>
+    <td><%= @user.role %></td>
+  </tr>
+
+</table>

@@ -5,15 +5,25 @@ defmodule Spamzapper.Application do
 
   use Application
 
+  @impl true
   def start(_type, _args) do
-    # List all child processes to be supervised
     children = [
-      # Start the Ecto repository
+      SpamzapperWeb.Telemetry,
       Spamzapper.Repo,
-      # Start the endpoint when the application starts
-      SpamzapperWeb.Endpoint
-      # Starts a worker by calling: Spamzapper.Worker.start_link(arg)
+      Spamzapper.ForumRepo,
+      {DNSCluster,
+        query: Application.get_env(:sample_app, :dns_cluster_query) || :ignore},
+      {Phoenix.PubSub,
+       [
+         name: Spamzapper.PubSub,
+         adapter: Phoenix.PubSub.PG2
+       ]},
+      # Start the Finch HTTP client for sending emails
+      {Finch, name: Spamzapper.Finch},
+      # Start a worker by calling: Spamzapper.Worker.start_link(arg)
       # {Spamzapper.Worker, arg},
+      # Start to serve requests, typically the last entry
+      SpamzapperWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -24,6 +34,7 @@ defmodule Spamzapper.Application do
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
+  @impl true
   def config_change(changed, _new, removed) do
     SpamzapperWeb.Endpoint.config_change(changed, removed)
     :ok

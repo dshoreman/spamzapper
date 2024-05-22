@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+  <h1 class="h2"><%= @title %></h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <.link href={~p"/admin/members"}
+      class="btn btn-sm btn-outline-secondary mr-2">Back</.link>
+    <.link href={~p"/admin/members/#{@member}/edit"}
+      class="btn btn-sm btn-primary">Edit</.link>
+  </div>
+</div>
+
+<table class="table table-sm">
+  <tbody>
+    <tr>
+      <th scope="row">User type:</th>
+      <td><%= @member.user_type %></td>
+    </tr>
+    <tr>
+      <th scope="row">Group:</th>
+      <td><%= @member.group_id %></td>
+    </tr>
+    <tr>
+      <th scope="row">User ip:</th>
+      <td><%= @member.user_ip %></td>
+    </tr>
+    <tr>
+      <th scope="row">Username:</th>
+      <td><%= @member.username %></td>
+    </tr>
+    <tr>
+      <th scope="row">User email:</th>
+      <td><%= @member.user_email %></td>
+    </tr>
+    <tr>
+      <th scope="row">User warnings:</th>
+      <td><%= @member.user_warnings %></td>
+    </tr>
+    <tr>
+      <th scope="row">User login attempts:</th>
+      <td><%= @member.user_login_attempts %></td>
+    </tr>
+    <tr>
+      <th scope="row">User inactive time:</th>
+      <td><%= @member.user_inactive_time %></td>
+    </tr>
+    <tr>
+      <th scope="row">User posts:</th>
+      <td><%= @member.user_posts %></td>
+    </tr>
+    <tr>
+      <th scope="row">User lang:</th>
+      <td><%= @member.user_lang %></td>
+    </tr>
+    <tr>
+      <th scope="row">User rank:</th>
+      <td><%= @member.user_rank %></td>
+    </tr>
+    <tr>
+      <th scope="row">User allow pm:</th>
+      <td><%= @member.user_allow_pm %></td>
+    </tr>
+    <tr>
+      <th scope="row">User sig:</th>
+      <td><%= @member.user_sig %></td>
+    </tr>
+    <tr>
+      <th scope="row">User website:</th>
+      <td><%= @member.user_website %></td>
+    </tr>
+  </tbody>
+</table>

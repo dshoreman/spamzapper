@@ -1,0 +1,88 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+  <h1 class="h2"><%= @title %></h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <.link href={~p"/email-domains"}
+      class="btn btn-sm btn-outline-secondary mr-2">Back</.link>
+  </div>
+</div>
+
+<%= if Enum.count(@changeset.changes) > 0 do %>
+  <div class="alert alert-danger">
+    <ul class="mb-0">
+      <%= for err <- Keyword.keys(@changeset.errors) do %>
+        <%= Enum.map(Keyword.get_values(@changeset.errors, err), fn error -> %>
+          <li><em><%= err %></em> <%= translate_error(error) %></li>
+        <% end) %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="row mb-5">
+  <div class="col-sm-4 col-md-5 col-lg-3">
+    <div class="card">
+      <div class="card-header">
+        Matching Accounts
+      </div>
+      <div class="card-body">
+        <h5 class="card-title mb-0">
+          <%= Enum.count(@members) %>
+          User(s)
+        </h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-8 col-md-7 col-lg-9">
+    <div class={"card text-white bg-#{ban_class(@domain, @ban)}"}>
+      <div class="card-header">
+        Ban Status
+      </div>
+      <div class="card-body">
+        <h5 class="card-title mb-0 float-left">
+          <%= ban_status(@domain, @ban) %>:
+          <%= if @ban do %>
+            Emails using
+            <code class="text-white">
+              <%= @ban.ban_email %>
+            </code> are prohibited.
+          <% else %>
+            <%= if @domain in whitelist(),
+              do: "#{@domain} cannot be banned via Spamzapper.",
+              else: "No ban entries found." %>
+          <% end %>
+        </h5>
+
+        <.form for={@changeset} action={~p"/email-domains/#{@domain}/ban"}>
+          <%= if !@ban do %>
+            <button class="btn btn-danger float-right" style="margin: -.4rem 0;">
+              Add <code class="text-light">*@<%= @domain %></code> to blacklist
+            </button>
+          <% end %>
+        </.form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Username</th>
+      <th scope="col">Email Address</th>
+      <th scope="col">Website</th>
+      <th scope="col">Posts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for member <- @members do %>
+      <tr>
+        <th scope="row"><%= member.username %></th>
+        <td><%= member.user_email %></td>
+        <td><%= member.user_website %></td>
+        <td><%= member.user_posts %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= pagination_links(@members) %>

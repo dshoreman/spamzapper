@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+  <h1 class="h2"><%= @title %></h1>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Email Domain</th>
+      <th scope="col" class="text-center">Ban Status</th>
+      <th scope="col">Accounts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for match <- @domains do %>
+      <tr>
+        <th scope="row">
+          <.link href={~p"/email-domains/#{match.email_domain}"}>
+            <%= match.email_domain %>
+          </.link>
+        </th>
+        <td class="text-center">
+          <span class={"badge badge-#{ban_class(match)}"}>
+            <%= ban_status(match) %>
+          </span>
+        </td>
+        <td><%= match.occurrences %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= pagination_links(@domains) %>

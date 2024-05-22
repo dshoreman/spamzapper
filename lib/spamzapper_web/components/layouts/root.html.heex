@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" class="[scrollbar-gutter:stable]">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <%= if assigns[:page_title] do %>
+      <.live_title suffix=" · Spamzapper"><%= assigns[:page_title] %></.live_title>
+    <% else %>
+      <.live_title>Spamzapper</.live_title>
+    <% end %>
+
+    <link rel="stylesheet" crossorigin="anonymous"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" />
+
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>
+  </head>
+  <body class="bg-white antialiased">
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href={~p"/"}>Spamzapper</a>
+
+      <input class="form-control form-control-dark w-100"
+             type="text" placeholder="Search" aria-label="Search" />
+
+      <ul class="navbar-nav px-3">
+        <%= _usermenu(assigns) %>
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-3 col-lg-2 d-none d-md-block bg-light sidebar">
+          <%= _sidebar(assigns) %>
+        </nav>
+        <%= @inner_content %>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>window.setTimeout(feather.replace, 150);</script>
+  </body>
+</html>

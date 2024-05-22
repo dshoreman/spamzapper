@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+  <h1 class="h2"><%= @title %></h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <.link href={~p"/admin/members/new"} class="btn btn-sm btn-primary">New Member</.link>
+  </div>
+</div>
+
+<table class="table table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Username</th>
+      <th scope="col">User posts</th>
+      <th scope="col">User email</th>
+
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for member <- @members do %>
+      <tr>
+        <th scope="row"><%= member.username %></th>
+        <td><%= member.user_posts %></td>
+        <td><%= member.user_email %></td>
+
+        <td>
+          <span><.link href={~p"/admin/members/#{member}"}>Show</.link></span>
+          <span><.link href={~p"/admin/members/#{member}/edit"}>Edit</.link></span>
+          <span>
+            <.link href={~p"/admin/members/#{member}"} method="delete"
+              data={[confirm: "Are you sure?"]}>Delete</.link>
+          </span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= pagination_links(@page) %>

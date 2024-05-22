@@ -1,0 +1,18 @@
+<.simple_form for={@changeset} action={@action} :let={f}>
+  <%= if @changeset.action do %>
+    <.flash kind={:error}>
+      Oops, couldn't save <%= f[:email].value %>!
+      <br>Please check the errors below.
+    </.flash>
+  <% end %>
+
+  <.input field={f[:email]} label="Email Address" />
+  <.input field={f[:password]} label="Password" type="password" />
+  <.input field={f[:password_confirmation]} label="Password Confirmation" type="password" />
+  <.input field={f[:role]} label="Role" type="select"
+    options={["Unverified": "unverified", "Moderator": "moderator", "Admin": "admin"]} />
+
+  <:actions>
+    <.button type="submit">Save</.button>
+  </:actions>
+</.simple_form>

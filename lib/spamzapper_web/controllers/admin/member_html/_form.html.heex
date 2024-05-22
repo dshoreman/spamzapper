@@ -1,0 +1,27 @@
+<.simple_form for={@changeset} action={@action} :let={f}>
+  <%= if @changeset.action do %>
+    <.flash kind={:error}>
+      Oops, couldn't save <%= f[:username].value %>!
+      <br>Please check the errors below.
+    </.flash>
+  <% end %>
+
+  <.input field={f[:user_type]} label="User Type ID" type="number" />
+  <.input field={f[:group_id]} label="Group ID" type="number" />
+  <.input field={f[:user_ip]} label="IP Address" />
+  <.input field={f[:username]} label="Username" />
+  <.input field={f[:user_email]} label="Email Address" />
+  <.input field={f[:user_warnings]} label="Warnings" type="number" />
+  <.input field={f[:user_login_attempts]} label="Login Attempts" type="number" />
+  <.input field={f[:user_inactive_time]} label="Inactive Time" type="number" />
+  <.input field={f[:user_posts]} label="Number of Posts" type="number" />
+  <.input field={f[:user_lang]} label="Language" />
+  <.input field={f[:user_rank]} label="Rank" type="number" />
+  <.input field={f[:user_allow_pm]} label="Allow PMs?" type="checkbox" />
+  <.input field={f[:user_sig]} label="Forum Signature" type="textarea" />
+  <.input field={f[:user_website]} label="Website" />
+
+  <:actions>
+    <.button type="submit">Save</.button>
+  </:actions>
+</.simple_form>

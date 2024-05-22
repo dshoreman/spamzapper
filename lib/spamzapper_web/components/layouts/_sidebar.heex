@@ -1,0 +1,52 @@
+<div class="sidebar-sticky">
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <.link href={~p"/"} class="nav-link">
+        <span data-feather="shield"></span>
+        Dashboard
+      </.link>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href={~p"/email-domains"}>
+        <span data-feather="at-sign"></span>
+        Email Domains
+      </a>
+    </li>
+
+    <%= if @current_user.role == "admin" do %>
+    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+      <span>Forum Admin</span>
+      <a class="d-flex align-items-center text-muted" href="#">
+        <span data-feather="plus-circle"></span>
+      </a>
+    </h6>
+    <li class="nav-item">
+      <.link href={~p"/admin/members"} class="nav-link">
+        <span data-feather="users"></span>
+        Manage Members
+      </.link>
+    </li>
+
+    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+      <span>Spamzapper Admin</span>
+      <a class="d-flex align-items-center text-muted" href="#">
+        <span data-feather="plus-circle"></span>
+      </a>
+    </h6>
+    <%= if Application.get_env(:spamzapper, :dev_routes) do %>
+      <li class="nav-item">
+        <.link href={~p"/dev/dashboard"} class="nav-link" target="_blank">
+          <span data-feather="activity"></span>
+          Live Dashboard
+        </.link>
+      </li>
+    <% end %>
+    <li class="nav-item">
+      <.link href={~p"/admin/users"} class="nav-link">
+        <span data-feather="users"></span>
+        Manage Users
+      </.link>
+    </li>
+    <% end %>
+  </ul>
+</div>

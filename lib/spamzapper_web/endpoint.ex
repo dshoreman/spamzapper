@@ -7,12 +7,13 @@ defmodule SpamzapperWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_spamzapper_key",
-    signing_salt: "PLOIdJbY"
+    signing_salt: "PLOIdJbY",
+    same_site: "Lax"
   ]
 
-  socket "/socket", SpamzapperWeb.UserSocket,
-    websocket: true,
-    longpoll: false
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options]],
+    longpoll: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -22,7 +23,7 @@ defmodule SpamzapperWeb.Endpoint do
     at: "/",
     from: :spamzapper,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: SpamzapperWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -30,7 +31,12 @@ defmodule SpamzapperWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :spamzapper
   end
+
+  plug Phoenix.LiveDashboard.RequestLogger,
+    param_key: "request_logger",
+    cookie_key: "request_logger"
 
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
@@ -43,5 +49,7 @@ defmodule SpamzapperWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  plug Pow.Plug.Session, otp_app: :spamzapper
+  plug PowPersistentSession.Plug.Cookie
   plug SpamzapperWeb.Router
 end

@@ -19,21 +19,33 @@ defmodule SpamzapperWeb.ConnCase do
 
   using do
     quote do
-      # Import conveniences for testing with connections
-      use Phoenix.ConnTest
-      alias SpamzapperWeb.Router.Helpers, as: Routes
-
       # The default endpoint for testing
       @endpoint SpamzapperWeb.Endpoint
+
+      use SpamzapperWeb, :verified_routes
+
+      # Import conveniences for testing with connections
+      import Plug.Conn
+      import Phoenix.ConnTest
+      import SpamzapperWeb.ConnCase
+      alias Spamzapper.Users.User
+
+      setup %{conn: conn} do
+        admin = %User{email: "admin@example.com", role: "admin"}
+        mod = %User{email: "mod@example.com", role: "moderator"}
+        user = %User{email: "unverified@example.com"}
+
+        authed_conn = Pow.Plug.assign_current_user(conn, admin, otp_app: :spamzapper)
+        unverified_conn = Pow.Plug.assign_current_user(conn, user, otp_app: :spamzapper)
+        mod_conn = Pow.Plug.assign_current_user(conn, mod, otp_app: :spamzapper)
+
+        {:ok, conn: conn, authed_conn: authed_conn, mod_conn: mod_conn, unverified_conn: unverified_conn}
+      end
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Spamzapper.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Spamzapper.Repo, {:shared, self()})
-    end
+    Spamzapper.DataCase.setup_sandbox(tags)
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end

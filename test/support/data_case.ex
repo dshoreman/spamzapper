@@ -19,6 +19,7 @@ defmodule Spamzapper.DataCase do
   using do
     quote do
       alias Spamzapper.Repo
+      alias Spamzapper.ForumRepo
 
       import Ecto
       import Ecto.Changeset
@@ -28,13 +29,22 @@ defmodule Spamzapper.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Spamzapper.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Spamzapper.Repo, {:shared, self()})
-    end
+    Spamzapper.DataCase.setup_sandbox(tags)
 
     :ok
+  end
+
+  @doc """
+  Sets up the sandbox based on the test tags.
+  """
+  def setup_sandbox(tags) do
+    main_pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Spamzapper.Repo, shared: not tags[:async])
+    forum_pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Spamzapper.ForumRepo, shared: not tags[:async])
+
+    on_exit(fn ->
+      Ecto.Adapters.SQL.Sandbox.stop_owner(main_pid)
+      Ecto.Adapters.SQL.Sandbox.stop_owner(forum_pid)
+    end)
   end
 
   @doc """
