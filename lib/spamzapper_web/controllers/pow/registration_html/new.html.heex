@@ -3,7 +3,7 @@
     Register
     <:subtitle>
       Already have an account?
-      <.link navigate={Pow.Phoenix.Routes.path_for(@conn, Pow.Phoenix.SessionController, :new)} class="font-semibold text-brand hover:underline">
+      <.link navigate={~p"/login"} class="font-semibold text-brand hover:underline">
         Sign in
       </.link> now.
     </:subtitle>
@@ -16,7 +16,7 @@
     <.input field={f[:password_confirmation]} type="password" label="Confirm password" required />
 
     <:actions>
-      <.button phx-disable-with="Registering..." class="w-full">
+      <.button phx-disable-with="Registering account..." class="w-full">
         Register <span aria-hidden="true">→</span>
       </.button>
     </:actions>

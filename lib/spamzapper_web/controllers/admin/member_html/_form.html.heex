@@ -1,65 +1,27 @@
-<.form for={@changeset} action={@action} :let={f}>
+<.simple_form for={@changeset} action={@action} :let={f}>
   <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <span>Oops, something went wrong! Please check the errors below.</span>
-    </div>
+    <.flash kind={:error}>
+      Oops, couldn't save <%= f[:username].value %>!
+      <br>Please check the errors below.
+    </.flash>
   <% end %>
 
-  <div class="form-group">
-    <.input field={f[:user_type]} label="User Type ID" type="number" />
-  </div>
+  <.input field={f[:user_type]} label="User Type ID" type="number" />
+  <.input field={f[:group_id]} label="Group ID" type="number" />
+  <.input field={f[:user_ip]} label="IP Address" />
+  <.input field={f[:username]} label="Username" />
+  <.input field={f[:user_email]} label="Email Address" />
+  <.input field={f[:user_warnings]} label="Warnings" type="number" />
+  <.input field={f[:user_login_attempts]} label="Login Attempts" type="number" />
+  <.input field={f[:user_inactive_time]} label="Inactive Time" type="number" />
+  <.input field={f[:user_posts]} label="Number of Posts" type="number" />
+  <.input field={f[:user_lang]} label="Language" />
+  <.input field={f[:user_rank]} label="Rank" type="number" />
+  <.input field={f[:user_allow_pm]} label="Allow PMs?" type="checkbox" />
+  <.input field={f[:user_sig]} label="Forum Signature" type="textarea" />
+  <.input field={f[:user_website]} label="Website" />
 
-  <div class="form-group">
-    <.input field={f[:group_id]} label="Group ID" type="number" />
-  </div>
-
-  <div class="form-group">
-    <.input field={f[:user_ip]} label="IP Address" />
-  </div>
-
-  <div class="form-group">
-    <.input field={f[:username]} label="Username" />
-  </div>
-
-  <div class="form-group">
-    <.input field={f[:user_email]} label="Email Address" />
-  </div>
-
-  <div class="form-group">
-    <.input field={f[:user_warnings]} label="Warnings" type="number" />
-  </div>
-
-  <div class="form-group">
-    <.input field={f[:user_login_attempts]} label="Login Attempts" type="number" />
-  </div>
-
-  <div class="form-group">
-    <.input field={f[:user_inactive_time]} label="Inactive Time" type="number" />
-  </div>
-
-  <div class="form-group">
-    <.input field={f[:user_posts]} label="Number of Posts" type="number" />
-  </div>
-
-  <div class="form-group">
-    <.input field={f[:user_lang]} label="Language" />
-  </div>
-
-  <div class="form-group">
-    <.input field={f[:user_rank]} label="Rank" type="number" />
-  </div>
-
-  <div class="form-check">
-    <.input field={f[:user_allow_pm]} label="Allow PMs?" type="checkbox" />
-  </div>
-
-  <div class="form-group">
-    <.input field={f[:user_sig]} label="Forum Signature" type="textarea" />
-  </div>
-
-  <div class="form-group">
-    <.input field={f[:user_website]} label="Website" />
-  </div>
-
-  <.button type="submit">Save</.button>
-</.form>
+  <:actions>
+    <.button type="submit">Save</.button>
+  </:actions>
+</.simple_form>
