@@ -35,4 +35,4 @@
   </tbody>
 </table>
 
-<%= paginate(@conn, @page, &Routes.admin_member_path/3, [:index]) %>
+<%= pagination_links(@page) %>

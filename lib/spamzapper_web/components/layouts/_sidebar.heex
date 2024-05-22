@@ -33,7 +33,7 @@
         <span data-feather="plus-circle"></span>
       </a>
     </h6>
-    <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+    <%= if Application.get_env(:spamzapper, :dev_routes) do %>
       <li class="nav-item">
         <.link href={~p"/dev/dashboard"} class="nav-link" target="_blank">
           <span data-feather="activity"></span>

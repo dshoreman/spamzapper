@@ -1,7 +1,7 @@
 defmodule SpamzapperWeb.EmailDomainHTML do
   use SpamzapperWeb, :html
 
-  import Scrivener.PhoenixView
+  import Scrivener.HTML
 
   embed_templates "email_domain_html/*"
 

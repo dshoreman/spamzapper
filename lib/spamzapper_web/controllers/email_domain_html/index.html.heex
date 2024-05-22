@@ -29,4 +29,4 @@
   </tbody>
 </table>
 
-<%= paginate(@conn, @domains, &Routes.email_domain_path/3, [:index]) %>
+<%= pagination_links(@domains) %>

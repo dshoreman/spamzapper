@@ -7,8 +7,9 @@
 # General application configuration
 import Config
 
-config :scrivener_phoenix,
-  window: 3
+config :scrivener_html,
+  routes_helper: SpamzapperWeb.Router.Helpers,
+  view_style: :bootstrap_v4
 
 config :spamzapper,
   ecto_repos: [Spamzapper.Repo, Spamzapper.ForumRepo],

@@ -29,7 +29,6 @@ defmodule SpamzapperWeb.ConnCase do
       import Phoenix.ConnTest
       import SpamzapperWeb.ConnCase
       alias Spamzapper.Users.User
-      alias SpamzapperWeb.Router.Helpers, as: Routes
 
       setup %{conn: conn} do
         admin = %User{email: "admin@example.com", role: "admin"}
