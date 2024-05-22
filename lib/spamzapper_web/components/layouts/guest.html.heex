@@ -24,8 +24,8 @@
           <div class="brand">
             <span>spam</span>zapper
           </div>
-          <p class="alert alert-info" role="alert"><%= Phoenix.Flash.get(@flash, :info) %></p>
-          <p class="alert alert-danger" role="alert"><%= Phoenix.Flash.get(@flash, :error) %></p>
+
+          <.flash_group flash={@flash} />
 
           <%= @inner_content %>
         </main>

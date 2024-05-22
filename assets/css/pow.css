@@ -6,6 +6,7 @@ body.pow main {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 4px;
     margin-top: calc(40vh - 130px);
+    max-width: 30rem;
 }
 
 body.pow .brand {

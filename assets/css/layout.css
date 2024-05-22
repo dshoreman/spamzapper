@@ -73,8 +73,6 @@ body {
 .navbar-nav {
     flex-direction: row;
 }
-.navbar-nav .nav-link {
-}
 
 .navbar .form-control {
   padding: .75rem 1rem;
