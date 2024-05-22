@@ -1,6 +1,9 @@
-defmodule SpamzapperWeb.EmailDomainView do
-  use SpamzapperWeb, :view
+defmodule SpamzapperWeb.EmailDomainHTML do
+  use SpamzapperWeb, :html
+
   import Scrivener.PhoenixView
+
+  embed_templates "email_domain_html/*"
 
   @whitelist [
     "aol.com",

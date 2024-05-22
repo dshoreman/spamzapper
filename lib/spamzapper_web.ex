@@ -56,14 +56,6 @@ defmodule SpamzapperWeb do
     end
   end
 
-  def live_component do
-    quote do
-      use Phoenix.LiveComponent
-
-      unquote(view_helpers())
-    end
-  end
-
   def component do
     quote do
       use Phoenix.Component
@@ -126,6 +118,14 @@ defmodule SpamzapperWeb do
       use Phoenix.LiveView,
         container: {:div, style: "display: contents"},
         layout: {SpamzapperWeb.Layouts, :app}
+
+      unquote(html_helpers())
+    end
+  end
+
+  def live_component do
+    quote do
+      use Phoenix.LiveComponent
 
       unquote(html_helpers())
     end

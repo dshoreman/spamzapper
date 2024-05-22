@@ -5,7 +5,7 @@ defmodule SpamzapperWeb.EmailDomainControllerTest do
 
   describe "index" do
     test "lists all email domains", %{mod_conn: mod_conn} do
-      conn = get(mod_conn, Routes.email_domain_path(mod_conn, :index))
+      conn = get(mod_conn, ~p"/email-domains")
       assert html_response(conn, 200) =~ "Listing Email Domains"
     end
   end

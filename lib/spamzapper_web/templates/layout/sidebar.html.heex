@@ -1,13 +1,13 @@
 <div class="sidebar-sticky">
   <ul class="nav flex-column">
     <li class="nav-item">
-      <a class="nav-link" href={Routes.page_path(@conn, :index)}>
+      <a class="nav-link" href={~p"/"}>
         <span data-feather="shield"></span>
         Dashboard
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href={Routes.email_domain_path(@conn, :index)}>
+      <a class="nav-link" href={~p"/email-domains"}>
         <span data-feather="at-sign"></span>
         Email Domains
       </a>
@@ -21,7 +21,7 @@
       </a>
     </h6>
     <li class="nav-item">
-      <a class="nav-link" href={Routes.admin_member_path(@conn, :index)}>
+      <a class="nav-link" href={~p"/admin/members"}>
         <span data-feather="users"></span>
         Manage Members
       </a>
@@ -35,14 +35,14 @@
     </h6>
     <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
       <li class="nav-item">
-        <a class="nav-link" href={Routes.live_dashboard_path(@conn, :home)} target="_blank">
+        <a class="nav-link" href={~p"/dev/dashboard"} target="_blank">
           <span data-feather="activity"></span>
           Live Dashboard
         </a>
       </li>
     <% end %>
     <li class="nav-item">
-      <a class="nav-link" href={Routes.admin_user_path(@conn, :index)}>
+      <a class="nav-link" href={~p"/admin/users"}>
         <span data-feather="users"></span>
         Manage Users
       </a>

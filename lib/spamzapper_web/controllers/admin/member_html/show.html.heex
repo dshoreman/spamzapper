@@ -1,12 +1,10 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
   <h1 class="h2"><%= @title %></h1>
   <div class="btn-toolbar mb-2 mb-md-0">
-    <%= link "Back", to: Routes.admin_member_path(
-      @conn, :index
-    ), class: "btn btn-sm btn-outline-secondary mr-2" %>
-    <%= link "Edit", to: Routes.admin_member_path(
-      @conn, :edit, @member
-    ), class: "btn btn-sm btn-primary" %>
+    <.link href={~p"/admin/members"}
+      class="btn btn-sm btn-outline-secondary mr-2">Back</.link>
+    <.link href={~p"/admin/members/#{@member}/edit"}
+      class="btn btn-sm btn-primary">Edit</.link>
   </div>
 </div>
 

@@ -1,5 +1,5 @@
 defmodule SpamzapperWeb.Admin.MemberController do
-  use SpamzapperWeb, :old_controller
+  use SpamzapperWeb, :controller
 
   alias Spamzapper.Forum
   alias Spamzapper.Forum.Member
@@ -24,7 +24,7 @@ defmodule SpamzapperWeb.Admin.MemberController do
       {:ok, member} ->
         conn
         |> put_flash(:info, "Member created successfully.")
-        |> redirect(to: Routes.admin_member_path(conn, :show, member))
+        |> redirect(to: ~p"/admin/members/#{member}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", title: "New Member", changeset: changeset)
@@ -49,7 +49,7 @@ defmodule SpamzapperWeb.Admin.MemberController do
       {:ok, member} ->
         conn
         |> put_flash(:info, "Member updated successfully.")
-        |> redirect(to: Routes.admin_member_path(conn, :show, member))
+        |> redirect(to: ~p"/admin/members/#{member}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", title: "Edit #{member.username}", member: member, changeset: changeset)
@@ -62,6 +62,6 @@ defmodule SpamzapperWeb.Admin.MemberController do
 
     conn
     |> put_flash(:info, "Member deleted successfully.")
-    |> redirect(to: Routes.admin_member_path(conn, :index))
+    |> redirect(to: ~p"/admin/members")
   end
 end

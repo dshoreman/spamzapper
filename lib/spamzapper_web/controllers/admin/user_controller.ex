@@ -1,5 +1,5 @@
 defmodule SpamzapperWeb.Admin.UserController do
-  use SpamzapperWeb, :old_controller
+  use SpamzapperWeb, :controller
 
   alias Spamzapper.Users
   alias Spamzapper.Repo
@@ -20,7 +20,7 @@ defmodule SpamzapperWeb.Admin.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: Routes.admin_user_path(conn, :show, user))
+        |> redirect(to: ~p"/admin/users/#{user}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", title: "New User", changeset: changeset)
@@ -45,7 +45,7 @@ defmodule SpamzapperWeb.Admin.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User updated successfully.")
-        |> redirect(to: Routes.admin_user_path(conn, :show, user))
+        |> redirect(to: ~p"/admin/users/#{user}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", title: "Edit User", user: user, changeset: changeset)
@@ -58,6 +58,6 @@ defmodule SpamzapperWeb.Admin.UserController do
 
     conn
     |> put_flash(:info, "User deleted successfully.")
-    |> redirect(to: Routes.admin_user_path(conn, :index))
+    |> redirect(to: ~p"/admin/users")
   end
 end

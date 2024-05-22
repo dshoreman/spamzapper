@@ -14,9 +14,9 @@
     <%= for match <- @domains do %>
       <tr>
         <th scope="row">
-          <%= link match.email_domain, to:
-            Routes.email_domain_path(@conn, :show, match.email_domain)
-          %>
+          <.link href={~p"/email-domains/#{match.email_domain}"}>
+            <%= match.email_domain %>
+          </.link>
         </th>
         <td class="text-center">
           <span class={"badge badge-#{ban_class(match)}"}>

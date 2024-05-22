@@ -1,5 +1,5 @@
 defmodule SpamzapperWeb.EmailDomainController do
-  use SpamzapperWeb, :old_controller
+  use SpamzapperWeb, :controller
 
   alias Spamzapper.Forum
   alias Spamzapper.ForumRepo
@@ -28,7 +28,7 @@ defmodule SpamzapperWeb.EmailDomainController do
       {:ok, _ban} ->
         conn
         |> put_flash(:info, "Domain #{domain} was blacklisted successfully.")
-        |> redirect(to: Routes.email_domain_path(conn, :show, domain))
+        |> redirect(to: ~p"/email-domains/#{domain}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         members = Forum.list_members_by_email_domain(domain)

@@ -1,0 +1,26 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <span>Oops, something went wrong! Please check the errors below.</span>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <.input field={f[:email]} label="Email Address" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:password]} label="Password" type="password" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:password_confirmation]} label="Password Confirmation" type="password" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:role]} label="Role" type="select"
+      options={["Unverified": "unverified", "Moderator": "moderator", "Admin": "admin"]} />
+  </div>
+
+  <.button type="submit">Save</.button>
+<% end %>

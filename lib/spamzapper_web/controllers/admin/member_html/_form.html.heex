@@ -1,0 +1,65 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <span>Oops, something went wrong! Please check the errors below.</span>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <.input field={f[:user_type]} label="User Type ID" type="number" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:group_id]} label="Group ID" type="number" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:user_ip]} label="IP Address" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:username]} label="Username" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:user_email]} label="Email Address" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:user_warnings]} label="Warnings" type="number" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:user_login_attempts]} label="Login Attempts" type="number" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:user_inactive_time]} label="Inactive Time" type="number" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:user_posts]} label="Number of Posts" type="number" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:user_lang]} label="Language" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:user_rank]} label="Rank" type="number" />
+  </div>
+
+  <div class="form-check">
+    <.input field={f[:user_allow_pm]} label="Allow PMs?" type="checkbox" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:user_sig]} label="Forum Signature" type="textarea" />
+  </div>
+
+  <div class="form-group">
+    <.input field={f[:user_website]} label="Website" />
+  </div>
+
+  <.button type="submit">Save</.button>
+<% end %>

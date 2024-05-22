@@ -17,10 +17,7 @@ defmodule SpamzapperWeb.Router do
     plug :accepts, ["json"]
   end
 
-  pipeline :oldpage do
-    plug :put_root_layout, {SpamzapperWeb.LayoutView, :root}
-  end
-  pipeline :newpage do
+  pipeline :app_layout do
     plug :put_root_layout, html: {SpamzapperWeb.Layouts, :root}
   end
 
@@ -42,7 +39,7 @@ defmodule SpamzapperWeb.Router do
   end
 
   scope "/", Pow.Phoenix, as: "pow" do
-    pipe_through [:browser, :protected, :newpage]
+    pipe_through [:browser, :protected, :app_layout]
 
     get "/registration/edit", RegistrationController, :edit
   end
@@ -55,13 +52,13 @@ defmodule SpamzapperWeb.Router do
   end
 
   scope "/", SpamzapperWeb do
-    pipe_through [:browser, :protected, :moderator, :newpage]
+    pipe_through [:browser, :protected, :moderator, :app_layout]
 
     live "/", PageLive, :index
   end
 
   scope "/", SpamzapperWeb do
-    pipe_through [:browser, :protected, :moderator, :oldpage]
+    pipe_through [:browser, :protected, :moderator, :app_layout]
 
     get "/email-domains", EmailDomainController, :index
     get "/email-domains/:domain", EmailDomainController, :show
@@ -69,7 +66,7 @@ defmodule SpamzapperWeb.Router do
   end
 
   scope "/admin", SpamzapperWeb.Admin, as: :admin do
-    pipe_through [:browser, :protected, :admin, :oldpage]
+    pipe_through [:browser, :protected, :admin, :app_layout]
 
     resources "/members", MemberController
     resources "/users", UserController
