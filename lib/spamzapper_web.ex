@@ -84,7 +84,6 @@ defmodule SpamzapperWeb do
     quote do
       # HTML escaping funcitonality
       import Phoenix.HTML
-      use PhoenixHTMLHelpers
 
       # Core UI components and translation
       import SpamzapperWeb.CoreComponents

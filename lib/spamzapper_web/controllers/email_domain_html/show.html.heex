@@ -52,13 +52,13 @@
           <% end %>
         </h5>
 
-        <%= form_for @changeset, ~p"/email-domains/#{@domain}/ban", fn f -> %>
+        <.form for={@changeset} action={~p"/email-domains/#{@domain}/ban"}>
           <%= if !@ban do %>
             <button class="btn btn-danger float-right" style="margin: -.4rem 0;">
               Add <code class="text-light">*@<%= @domain %></code> to blacklist
             </button>
           <% end %>
-        <% end %>
+        </.form>
       </div>
     </div>
   </div>
